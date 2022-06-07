@@ -4,26 +4,42 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour, IDrag
 {
+    [SerializeField]
+    private float mouseDragSpeed;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector2 speed = Vector2.zero;
+    private Vector2 mousePosition;
+    private bool IsDragging = false;
+
+    private void Awake()
     {
-        
+        mousePosition = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (IsDragging)
+        {
+            transform.position = mousePosition;
+        }
     }
 
-    public void OnDragEnd()
+    public void OnDragEnd(Vector2 position)
     {
-        Debug.Log("Knight OnDragEnd");
+        Debug.Log("Knight OnDragEnd in " + position.ToString());
+        if (IsDragging) MoveToFloor(position);
+        IsDragging = false;
     }
 
-    public void OnDragStart()
+    public void OnDragStart(Vector2 position)
     {
-        Debug.Log("Knight OnDragStart");
+        Debug.Log("Knight OnDragStart in " + position.ToString());
+        mousePosition = position;
+        IsDragging = true;
+    }
+
+    public void MoveToFloor(Vector2 position)
+    {
+
     }
 }

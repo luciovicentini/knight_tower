@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,70 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    //public event 
+
     [SerializeField]
-    private InputAction input;
+    private InputAction positionInput;
+
+    [SerializeField]
+    private InputAction pressInput;
+
+    private Camera mainCamera;
 
     private void Awake()
     {
-        Debug.Log(input);
-        input.Enable();
-
-        input.performed += Input_performed;
-        input.canceled += Input_canceled;
+        mainCamera = Camera.main;
     }
 
-    private void Input_canceled(InputAction.CallbackContext context)
+    private void OnEnable()
     {
-        Debug.Log(input.ReadValue<Vector2>());
+        positionInput.Enable();
+        pressInput.Enable();
+        positionInput.performed += Input_performed;
+        pressInput.canceled += Input_canceled;
+    }
+
+    private void OnDisable()
+    {
+        positionInput.performed -= Input_performed;
+        pressInput.canceled -= Input_canceled;
+        positionInput.Disable();
+        pressInput.Disable();
     }
 
     private void Input_performed(InputAction.CallbackContext context)
     {
-        Debug.Log(input.ReadValue<Vector2>());
+        Ray ray = mainCamera.ScreenPointToRay(positionInput.ReadValue<Vector2>());
+
+        RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+        if (hit2D.collider != null)
+        {
+            StartCoroutine(DragUpdate(hit2D.collider.transform));
+        }
     }
+
+    private IEnumerator DragUpdate(Transform transform)
+    {
+        while (pressInput.ReadValue<float>() != 0)
+        {
+            transform.TryGetComponent<IDrag>(out var iDragComponent);
+            iDragComponent?.OnDragStart(GetPointerWorldPosition());
+            yield return null;
+        }
+    }
+
+    private void Input_canceled(InputAction.CallbackContext context)
+    {
+        Ray ray = mainCamera.ScreenPointToRay(positionInput.ReadValue<Vector2>());
+
+        RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+        if (hit2D.collider != null)
+        {
+            transform.TryGetComponent<IDrag>(out var iDragComponent);
+            iDragComponent?.OnDragEnd(GetPointerWorldPosition());
+        }
+    }
+
+    private Vector2 GetPointerWorldPosition() => mainCamera.ScreenToWorldPoint(positionInput.ReadValue<Vector2>());
+
 }
