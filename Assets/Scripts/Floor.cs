@@ -6,35 +6,38 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
-    private int powerLevel;
     private TextMeshPro powerLevelText;
+    private int powerLevel;
 
-    public static Floor Create(Transform parent, Vector3 position)
+    private void OnEnable()
     {
-        Transform floorTransform = Instantiate(GameAssets.Instance.pfEnemyFloor, Vector3.zero, Quaternion.identity, parent);
-        floorTransform.localPosition = position;
+        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+    }
 
-        Floor floor = floorTransform.GetComponent<Floor>();
-        return floor;
+    private void OnDisable()
+    {
+        BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
     }
 
     private void Awake()
     {
+        powerLevel = 1;
         powerLevelText = transform.Find("levelIndicator").Find("levelIndicatorText").GetComponent<TextMeshPro>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         powerLevelText.SetText(powerLevel.ToString());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
-        
+        Debug.Log("Player win battle");
+        powerLevel = e.newPlayerLevel;
+        powerLevelText.SetText(powerLevel.ToString());
     }
 
+    public int GetPowerLevel() => powerLevel;
+
     public void SetPowerLevel(int level) => powerLevel = level;
-    
 }

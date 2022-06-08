@@ -515,6 +515,7 @@ GameObject:
   - component: {fileID: 7917387898096284323}
   - component: {fileID: -3805372932326642047}
   - component: {fileID: 2261653631264263669}
+  - component: {fileID: -213622930546758733}
   m_Layer: 0
   m_Name: pfKnight
   m_TagString: Untagged
@@ -573,6 +574,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0.003054887, y: -0.027494252}
   m_Size: {x: 0.7993824, y: 1.9959036}
   m_Direction: 0
+--- !u!50 &-213622930546758733
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7917387898096284322}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7917387898591632507
 GameObject:
   m_ObjectHideFlags: 0

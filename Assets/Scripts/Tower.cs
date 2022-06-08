@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
         {
             int floorNumber = floorLevels.IndexOf(level);
             Vector3 floorPosition = floorNumber * new Vector3(0, 1f, 0);
-            Floor floor = Floor.Create(towerTransform, floorPosition);
+            EnemyFloor floor = EnemyFloor.Create(towerTransform, floorPosition);
             floor.SetPowerLevel(level);
         }
 
@@ -22,9 +22,5 @@ public class Tower : MonoBehaviour
         return tower;
     }
 
-    private void Start()
-    {
-
-    }
 
 }
