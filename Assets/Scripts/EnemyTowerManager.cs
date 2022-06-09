@@ -1,35 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerManager : MonoBehaviour
 {
+    [SerializeField]
+    private int startingFloorAmount = 2;
+
+    private Transform playerTower;
+    private Vector3 enemyTowerPosition;
+    private int currentFloorAmount;
+    private EnemyTower currentTower;
 
     private void Awake()
     {
-        Transform playerTower = GameObject.Find("player").transform;
+        playerTower = GameObject.Find("player").transform;
         Vector3 screenWorldPosition = UtilsClass.GetScreenWorldPosition();
-        Vector3 towerPosition = new Vector3(screenWorldPosition.x - (playerTower.position.x * -1), playerTower.position.y, 0f);
-        
-        InstanciateNewTower(towerPosition);
+        enemyTowerPosition = new Vector3(screenWorldPosition.x - (playerTower.position.x * -1), playerTower.position.y, 0f);
+        currentFloorAmount = startingFloorAmount;
+        currentTower = CreateNewTower();
+
     }
 
-    private void InstanciateNewTower(Vector3 position)
+    private EnemyTower CreateNewTower(int playerLevel = 1)
     {
-        Tower.Create(position, GetFloorPowerLevels(4));
+        return EnemyTower.Create(enemyTowerPosition, FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel));
     }
 
-    private List<int> GetFloorPowerLevels(int floorCount, int playerLevel = 1)
+    private void OnEnable()
     {
-        List<int> floorPowerLevels = new List<int>();
-        floorPowerLevels.Add ( playerLevel == 1 ? 1 : playerLevel - 1);
+        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+    }
 
-        for (int i = 1; i < floorCount; i++)
+    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
+    {
+        Debug.Log($"(EnemyTowerManager) - BattleManager_OnPlayerWinBattle:CurrentTower= {currentTower}");
+        if (currentTower.IsTowerDefeated())
         {
-            int lastPowerLevel = floorPowerLevels[i - 1];
-            floorPowerLevels.Add(lastPowerLevel + Random.Range(1, lastPowerLevel + 1));
+            Destroy(currentTower.gameObject);
+            currentFloorAmount++;
+            currentTower = CreateNewTower(playerTower.GetComponentInChildren<Floor>().floorData.powerLevel);
         }
-        return floorPowerLevels;
     }
+
+
 }

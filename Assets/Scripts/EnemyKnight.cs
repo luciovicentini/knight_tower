@@ -16,6 +16,6 @@ public class EnemyKnight : MonoBehaviour
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
-        Destroy(this);
+        // Destroy(this.gameObject);
     }
 }

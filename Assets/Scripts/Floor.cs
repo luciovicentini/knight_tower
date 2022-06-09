@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Floor : MonoBehaviour
+public class Floor : BasicFloor
 {
-    private TextMeshPro powerLevelText;
-    private int powerLevel;
-
     private void OnEnable()
     {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
@@ -21,23 +18,19 @@ public class Floor : MonoBehaviour
 
     private void Awake()
     {
-        powerLevel = 1;
+        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
         powerLevelText = transform.Find("levelIndicator").Find("levelIndicatorText").GetComponent<TextMeshPro>();
     }
 
     private void Start()
     {
-        powerLevelText.SetText(powerLevel.ToString());
+        powerLevelText.SetText(floorData.powerLevel.ToString());
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
         Debug.Log("Player win battle");
-        powerLevel = e.newPlayerLevel;
-        powerLevelText.SetText(powerLevel.ToString());
+        floorData.powerLevel = e.newPlayerLevel;
+        powerLevelText.SetText(floorData.powerLevel.ToString());
     }
-
-    public int GetPowerLevel() => powerLevel;
-
-    public void SetPowerLevel(int level) => powerLevel = level;
 }

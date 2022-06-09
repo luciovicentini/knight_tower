@@ -1,86 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Knight : MonoBehaviour, IDrag
+public class Knight : MonoBehaviour
 {
-
-    private Vector2 draggingPosition;
-    private Vector2 startPosition;
-    private bool IsDragging = false;
-
     private Floor playerFloor;
-    private EnemyFloor enemyFloorAttacked;
+    private PlayerMovement playerMovement;
+
 
     private void Awake()
     {
-        startPosition = transform.position;
-        draggingPosition = transform.position;
         playerFloor = transform.parent.GetComponent<Floor>();
-        Debug.Log(playerFloor);
+        playerMovement = transform.GetComponent<PlayerMovement>();
     }
 
-    private void Update()
+    private void Start()
     {
-        if (IsDragging)
-        {
-            transform.position = draggingPosition;
-        }
+        playerMovement.OnPlayerAttackEnemyFloor += PlayerMovement_OnPlayerAttackEnemyFloor;
     }
 
-    public void OnDragEnd()
+    private void PlayerMovement_OnPlayerAttackEnemyFloor(object sender, PlayerMovement.OnPlayerAttackEnemyFloorEventArgs args)
     {
-        if (!IsDragging) return;
-        MoveToClosestFloor();
-        Battle();
-        IsDragging = false;
+        Battle(args.enemyFloor);
     }
 
-    public void OnDragging(Vector2 position)
+    private void Battle(EnemyFloor enemyFloor)
     {
-        draggingPosition = position;
-    }
-
-
-    public void OnDragStart(Vector2 position)
-    {
-        draggingPosition = position;
-        IsDragging = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        EnemyFloor enemyFloorTouched = collision.GetComponent<EnemyFloor>();
-        if (enemyFloorTouched != null)
-        {
-            enemyFloorAttacked = enemyFloorTouched;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        EnemyFloor enemyFloorTouched = collision.GetComponent<EnemyFloor>();
-        if (enemyFloorAttacked == enemyFloorTouched) enemyFloorAttacked = null;
-    }
-
-    private void MoveToClosestFloor()
-    {
-        if (enemyFloorAttacked == null)
-        {
-            transform.position = startPosition;
-        } else
-        {
-            transform.position = enemyFloorAttacked.transform.position;
-        }
-    }
-
-    private void Battle()
-    {
-        Debug.Log(BattleManager.Instance);
-        Debug.Log(playerFloor);
-        Debug.Log(enemyFloorAttacked);
-        if (enemyFloorAttacked != null) { 
-            BattleManager.Instance.Resolve(playerFloor.GetPowerLevel(), enemyFloorAttacked.GetPowerLevel());
-        }
+        BattleManager.Instance.Resolve(playerFloor.floorData.powerLevel, enemyFloor.floorData);
     }
 }

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EnemyFloor : MonoBehaviour
+public class EnemyFloor : BasicFloor
 {
-    private int powerLevel;
-    private TextMeshPro powerLevelText;
 
     public static EnemyFloor Create(Transform parent, Vector3 position)
     {
@@ -29,9 +27,10 @@ public class EnemyFloor : MonoBehaviour
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
-        powerLevel = 0;
+        if (e.floorData.floorNumber != this.floorData.floorNumber) return;
+        floorData.powerLevel = 0;
         UpdateText();
-        gameObject.SetActive(false);
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     private void Awake()
@@ -41,17 +40,11 @@ public class EnemyFloor : MonoBehaviour
 
     void Start()
     {
-        UpdateText();    
+        UpdateText();
     }
 
     private void UpdateText()
     {
-        powerLevelText.SetText(powerLevel.ToString());
+        powerLevelText.SetText(floorData.powerLevel.ToString());
     }
-
-    public void SetPowerLevel(int level) => powerLevel = level;
-
-    public int GetPowerLevel() => powerLevel;
-
-
 }
