@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, IDrag
@@ -11,35 +12,20 @@ public class PlayerMovement : MonoBehaviour, IDrag
         public EnemyFloor enemyFloor;
     }
 
+    private float floorDetectionRadius = .3f;
+
     private Vector2 draggingPosition;
     private Vector2 startPosition;
     private bool IsDragging = false;
     private EnemyFloor enemyFloorAttacked;
 
-    private void Awake()
-    {
-        startPosition = transform.position;
-        draggingPosition = transform.position;
-    }
-
     public void OnDragEnd()
     {
         if (!IsDragging) return;
-        SendPlayerIsAttackingEvent();
+        CheckFloorIsAttacked();
         MovePlayer();
+        SendPlayerIsAttackingEvent();
         IsDragging = false;
-    }
-
-    private void MovePlayer()
-    {
-        if (enemyFloorAttacked != null)
-        {
-            MoveToFloor();
-        }
-        else
-        {
-            MoveToStart();
-        }
     }
 
     public void OnDragging(Vector2 position)
@@ -54,6 +40,22 @@ public class PlayerMovement : MonoBehaviour, IDrag
         IsDragging = true;
     }
 
+    private void Awake()
+    {
+        startPosition = transform.position;
+        draggingPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+    }
+
+    private void OnDisable()
+    {
+        BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
+    }
+
     private void Update()
     {
         if (IsDragging)
@@ -62,19 +64,40 @@ public class PlayerMovement : MonoBehaviour, IDrag
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void CheckFloorIsAttacked()
     {
-        EnemyFloor enemyFloorTouched = collision.GetComponent<EnemyFloor>();
-        if (enemyFloorTouched != null)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
+        List<EnemyFloor> enemyFloorList = new List<EnemyFloor>();
+
+        foreach (Collider2D collider in colliders)
         {
-            enemyFloorAttacked = enemyFloorTouched;
+            if (collider.TryGetComponent<EnemyFloor>(out EnemyFloor enemyFloor))
+            {
+                enemyFloorList.Add(enemyFloor);
+            }
+        }
+
+        if (enemyFloorList.Count == 0)
+        {
+            enemyFloorAttacked = null;
+        }
+        else
+        {
+            enemyFloorList = enemyFloorList.OrderBy(ef => Vector2.Distance(transform.position, ef.transform.position)).ToList();
+            enemyFloorAttacked = enemyFloorList[0];
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void MovePlayer()
     {
-        EnemyFloor enemyFloorTouched = collision.GetComponent<EnemyFloor>();
-        if (enemyFloorAttacked == enemyFloorTouched) enemyFloorAttacked = null;
+        if (enemyFloorAttacked != null)
+        {
+            MoveToFloor();
+        }
+        else
+        {
+            MoveToStart();
+        }
     }
 
     private void MoveToFloor()
@@ -91,5 +114,10 @@ public class PlayerMovement : MonoBehaviour, IDrag
     {
         if (enemyFloorAttacked == null) return;
         OnPlayerAttackEnemyFloor?.Invoke(this, new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked });
+    }
+
+    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
+    {
+        MoveToStart();
     }
 }
