@@ -18,7 +18,7 @@ public class FloorData
         floorDataList.Add(new FloorData
         {
             floorNumber = randomFloorNumberList[0],
-            powerLevel = playerLevel == 1 ? 1 : playerLevel - 1
+            powerLevel = Random.Range(1, playerLevel),
         });
 
         for (int i = 2; i <= floorAmount; i++)

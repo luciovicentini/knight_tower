@@ -12,7 +12,7 @@ public class EnemyTower : MonoBehaviour
     public static EnemyTower Create(Vector3 position, List<FloorData> floorLevels)
     {
         Transform enemyTowerTransform = Instantiate(GameAssets.Instance.pfEnemyTower, position, Quaternion.identity);
-        LogFloorLevels(floorLevels);
+
         EnemyFloor[] floors = new EnemyFloor[floorLevels.Count];
 
         int index = 0;
@@ -38,14 +38,6 @@ public class EnemyTower : MonoBehaviour
             floors[i].OnFloorDefeated += EnemyFloor_OnFloorDefeated;
         }
 
-    }
-
-    private static void LogFloorLevels(List<FloorData> floorDatas)
-    {
-        foreach (FloorData item in floorDatas)
-        {
-            Debug.Log($"[EnemyTower](Create) - FloorData = {item.ToString()}");
-        }
     }
 
     private void EnemyFloor_OnFloorDefeated(object sender, EventArgs e)
