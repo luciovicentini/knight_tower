@@ -14,10 +14,7 @@ public class FloorData
     {
         List<FloorData> floorDataList = new List<FloorData>();
         List<int> randomFloorNumberList = GetRandomFloorNumberList(floorAmount);
-        foreach (var item in randomFloorNumberList)
-        {
-            Debug.Log(item);
-        }
+
         floorDataList.Add(new FloorData
         {
             floorNumber = randomFloorNumberList[0],

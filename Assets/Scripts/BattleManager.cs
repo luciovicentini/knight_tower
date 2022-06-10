@@ -34,14 +34,14 @@ public class BattleManager : MonoBehaviour
         Debug.Log("[BattleManager](Resolve) - Enemy Level " + enemyFloorData.powerLevel);
         if (playerLevel == enemyFloorData.powerLevel || playerLevel > enemyFloorData.powerLevel)
         {
+            Debug.Log("[BattleManager](Resolve) - Player Won");
             OnPlayerWinBattleEventArgs args = new OnPlayerWinBattleEventArgs { newPlayerLevel = playerLevel + enemyFloorData.powerLevel, floorData = enemyFloorData };
             OnPlayerWinBattle?.Invoke(this, args);
-            Debug.Log("[BattleManager](Resolve) - Player Won");
         }
         else
         {
-            OnEnemyWinBattle?.Invoke(this, EventArgs.Empty);
             Debug.Log("[BattleManager](Resolve) - Enemy Won");
+            OnEnemyWinBattle?.Invoke(this, EventArgs.Empty);
         }
     }
 }

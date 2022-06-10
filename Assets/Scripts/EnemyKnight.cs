@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyKnight : MonoBehaviour
 {
-    private void OnEnable()
+    /* private void OnEnable()
     {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
     }
@@ -17,5 +17,5 @@ public class EnemyKnight : MonoBehaviour
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
         // Destroy(this.gameObject);
-    }
+    } */
 }

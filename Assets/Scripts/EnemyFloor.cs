@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 public class EnemyFloor : BasicFloor
 {
+    public event EventHandler OnFloorDefeated;
 
     public static EnemyFloor Create(Transform parent, Vector3 position)
     {
@@ -31,6 +33,10 @@ public class EnemyFloor : BasicFloor
         floorData.powerLevel = 0;
         UpdateText();
         GetComponent<BoxCollider2D>().enabled = false;
+        if (IsDefeated())
+        {
+            OnFloorDefeated?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     private void Awake()
@@ -47,4 +53,6 @@ public class EnemyFloor : BasicFloor
     {
         powerLevelText.SetText(floorData.powerLevel.ToString());
     }
+
+    public bool IsDefeated() => floorData.powerLevel <= 0;
 }

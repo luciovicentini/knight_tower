@@ -1,7 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerManager : MonoBehaviour
@@ -21,29 +20,27 @@ public class EnemyTowerManager : MonoBehaviour
         enemyTowerPosition = new Vector3(screenWorldPosition.x - (playerTower.position.x * -1), playerTower.position.y, 0f);
         currentFloorAmount = startingFloorAmount;
         currentTower = CreateNewTower();
-
     }
 
     private EnemyTower CreateNewTower(int playerLevel = 1)
     {
-        return EnemyTower.Create(enemyTowerPosition, FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel));
+        EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel));
+        enemyTower.OnTowerDefeated += EnemyTower_OnTowerDefeated;
+        return enemyTower;
     }
 
-    private void OnEnable()
+    private void OnDisable()
     {
-        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+        currentTower.OnTowerDefeated -= EnemyTower_OnTowerDefeated;
     }
 
-    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
+    private void EnemyTower_OnTowerDefeated(object sender, EventArgs e)
     {
         Debug.Log($"(EnemyTowerManager) - BattleManager_OnPlayerWinBattle:CurrentTower= {currentTower}");
-        if (currentTower.IsTowerDefeated())
-        {
-            Destroy(currentTower.gameObject);
-            currentFloorAmount++;
-            currentTower = CreateNewTower(playerTower.GetComponentInChildren<Floor>().floorData.powerLevel);
-        }
-    }
 
+        Destroy(currentTower.gameObject);
+        currentFloorAmount++;
+        currentTower = CreateNewTower(playerTower.GetComponentInChildren<Floor>().floorData.powerLevel);
+    }
 
 }
