@@ -41,6 +41,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             Debug.Log("[BattleManager](Resolve) - Enemy Won");
+            CinemachineShake.Instance.ShakeCamera(1f, .5f);
             OnEnemyWinBattle?.Invoke(this, EventArgs.Empty);
         }
     }

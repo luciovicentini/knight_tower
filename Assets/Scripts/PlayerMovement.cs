@@ -49,11 +49,14 @@ public class PlayerMovement : MonoBehaviour, IDrag
     private void Start()
     {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
     }
 
     private void OnDisable()
     {
         BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
+        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
+
     }
 
     private void Update()
@@ -117,6 +120,11 @@ public class PlayerMovement : MonoBehaviour, IDrag
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
+    {
+        MoveToStart();
+    }
+
+    private void BattleManager_OnEnemyWinBattle(object sender, EventArgs e)
     {
         MoveToStart();
     }

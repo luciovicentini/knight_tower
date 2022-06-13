@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyTowerManager : MonoBehaviour
 {
     [SerializeField]
-    private int startingFloorAmount = 2;
+    private int startingFloorAmount = 20;
 
     private Transform playerTower;
     private Vector3 enemyTowerPosition;

@@ -16,11 +16,12 @@ public class InputManager : MonoBehaviour
 
     private Camera mainCamera;
     private Vector2 inputPosition;
-    private IDrag iDragComponent;
+    private List<IDrag> iDragComponentList;
 
     private void Awake()
     {
         mainCamera = Camera.main;
+        iDragComponentList = new List<IDrag>();
     }
 
     private void OnEnable()
@@ -50,32 +51,66 @@ public class InputManager : MonoBehaviour
     {
         Ray ray = mainCamera.ScreenPointToRay(inputPosition);
 
-        RaycastHit2D hit2D = Physics2D.GetRayIntersection(ray);
+        RaycastHit2D[] hits2DArray = Physics2D.GetRayIntersectionAll(ray);
 
-        if (hit2D.collider != null)
+        foreach (RaycastHit2D hit2D in hits2DArray)
         {
-            hit2D.collider.transform.TryGetComponent(out iDragComponent);
-            iDragComponent?.OnDragStart(GetPointerWorldPosition());
-            StartCoroutine(DragUpdate());
+            if (hit2D.collider != null)
+            {
+                IDrag iDragComponent = hit2D.collider.transform.GetComponent<IDrag>();
+                Debug.Log($"[InputManager](PressInput_Performed) idragComponent = {iDragComponent}");
+                if (iDragComponent != null)
+                {
+                    iDragComponentList.Add(iDragComponent);
+                    iDragComponent.OnDragStart(GetPointerWorldPosition());
+                    for (int i = 0; i < iDragComponentList.Count; i++)
+                    {
+                        Debug.Log($"[InputManager](PressInput_Performed) idragComponent(List) = {iDragComponentList[i]}");
+                    }
+                }
+            }
         }
+        StartCameraDragging();
 
+        StartCoroutine(DragUpdate());
     }
 
     private void PressInput_canceled(InputAction.CallbackContext obj)
     {
-        iDragComponent?.OnDragEnd();
-        iDragComponent = null;
+        for (int i = 0; i < iDragComponentList.Count; i++)
+        {
+            Debug.Log($"[InputManager](PressInput_canceled) idragComponent(List) = {iDragComponentList[i]}");
+        }
+        foreach (IDrag iDragComponent in iDragComponentList)
+        {
+            iDragComponent?.OnDragEnd();
+        }
+        iDragComponentList = new List<IDrag>();
     }
 
     private IEnumerator DragUpdate()
     {
         while (pressInput.ReadValue<float>() != 0)
         {
-            iDragComponent?.OnDragging(GetPointerWorldPosition());
+            foreach (IDrag iDragComponent in iDragComponentList)
+            {
+                Debug.Log($"[InputManager](DragUpdate) idragComponent(List) = {iDragComponent}");
+                iDragComponent?.OnDragging(GetPointerWorldPosition());
+            }
+
             yield return null;
         }
     }
 
     private Vector2 GetPointerWorldPosition() => mainCamera.ScreenToWorldPoint(inputPosition);
 
+    private void StartCameraDragging()
+    {
+        Transform cameraFollowTransform = GameObject.Find("/MainObjects/CameraFollow")?.transform;
+
+        if (cameraFollowTransform == null) return;
+        IDrag iDragComponent = cameraFollowTransform.GetComponent<IDrag>();
+        iDragComponentList.Add(iDragComponent);
+        iDragComponent?.OnDragStart(GetPointerWorldPosition());
+    }
 }
