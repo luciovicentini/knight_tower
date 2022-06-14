@@ -58,15 +58,10 @@ public class InputManager : MonoBehaviour
             if (hit2D.collider != null)
             {
                 IDrag iDragComponent = hit2D.collider.transform.GetComponent<IDrag>();
-                Debug.Log($"[InputManager](PressInput_Performed) idragComponent = {iDragComponent}");
                 if (iDragComponent != null)
                 {
                     iDragComponentList.Add(iDragComponent);
                     iDragComponent.OnDragStart(GetPointerWorldPosition());
-                    for (int i = 0; i < iDragComponentList.Count; i++)
-                    {
-                        Debug.Log($"[InputManager](PressInput_Performed) idragComponent(List) = {iDragComponentList[i]}");
-                    }
                 }
             }
         }
@@ -77,10 +72,6 @@ public class InputManager : MonoBehaviour
 
     private void PressInput_canceled(InputAction.CallbackContext obj)
     {
-        for (int i = 0; i < iDragComponentList.Count; i++)
-        {
-            Debug.Log($"[InputManager](PressInput_canceled) idragComponent(List) = {iDragComponentList[i]}");
-        }
         foreach (IDrag iDragComponent in iDragComponentList)
         {
             iDragComponent?.OnDragEnd();
@@ -94,7 +85,6 @@ public class InputManager : MonoBehaviour
         {
             foreach (IDrag iDragComponent in iDragComponentList)
             {
-                Debug.Log($"[InputManager](DragUpdate) idragComponent(List) = {iDragComponent}");
                 iDragComponent?.OnDragging(GetPointerWorldPosition());
             }
 
@@ -106,8 +96,7 @@ public class InputManager : MonoBehaviour
 
     private void StartCameraDragging()
     {
-        Transform cameraFollowTransform = GameObject.Find("/MainObjects/CameraFollow")?.transform;
-
+        Transform cameraFollowTransform = GameObject.Find("/CameraHandler/CameraFollow")?.transform;
         if (cameraFollowTransform == null) return;
         IDrag iDragComponent = cameraFollowTransform.GetComponent<IDrag>();
         iDragComponentList.Add(iDragComponent);

@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyTower : MonoBehaviour
 {
     public event EventHandler OnTowerDefeated;
+    public static event EventHandler OnCreateEnemyTower;
 
     private EnemyFloor[] floors;
 
@@ -28,6 +29,7 @@ public class EnemyTower : MonoBehaviour
         enemyTowerTransform.Find("roof").localPosition = (floorLevels.Count * new Vector3(0f, 1f, 0f)) - new Vector3(0f, .4f, 0f);
         EnemyTower enemyTower = enemyTowerTransform.GetComponent<EnemyTower>();
         enemyTower.floors = floors;
+        OnCreateEnemyTower?.Invoke(enemyTower, EventArgs.Empty);
         return enemyTower;
     }
 
@@ -59,4 +61,6 @@ public class EnemyTower : MonoBehaviour
         }
         return true;
     }
+
+    public int GetFloorAmount() => floors.Length;
 }

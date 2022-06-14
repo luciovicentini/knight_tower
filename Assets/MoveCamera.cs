@@ -10,6 +10,13 @@ public class MoveCamera : MonoBehaviour, IDrag
     private Vector2 draggingPosition;
     private Vector2 startingPosition;
 
+    private Transform cameraConfiner;
+
+    private void Awake()
+    {
+        cameraConfiner = GameObject.Find("/CameraHandler/CameraConfiner")?.transform;
+    }
+
     private void Start()
     {
         startingPosition = transform.position;
@@ -42,26 +49,25 @@ public class MoveCamera : MonoBehaviour, IDrag
     {
         if (isDragging)
         {
-            transform.position = draggingPosition;
+            Vector3 dir = ((Vector3)draggingPosition - transform.position);
+            float y = transform.position.y + dir.y * 1f * Time.deltaTime;
+            y = Mathf.Clamp(y, 0, cameraConfiner.localScale.y - 4);
+            transform.position = new Vector2(transform.position.x, y);
         }
     }
 
     public void OnDragEnd()
     {
         isDragging = false;
-        Debug.Log($"[MoveCamera](OnDragEnd) - isDragging = {isDragging}");
     }
 
     public void OnDragging(Vector2 position)
     {
         draggingPosition = position;
-        Debug.Log($"[MoveCamera](OnDragging) - position = {position}");
     }
 
     public void OnDragStart(Vector2 position)
     {
         isDragging = true;
-        Debug.Log($"[MoveCamera](OnDragStart) - position = {position}");
-
     }
 }

@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyTowerManager : MonoBehaviour
 {
+
     [SerializeField]
-    private int startingFloorAmount = 20;
+    private int startingFloorAmount = 4;
 
     private Transform playerTower;
     private Vector3 enemyTowerPosition;
@@ -16,9 +18,13 @@ public class EnemyTowerManager : MonoBehaviour
     private void Awake()
     {
         playerTower = GameObject.Find("player").transform;
+        currentFloorAmount = startingFloorAmount;
+    }
+
+    private void Start()
+    {
         Vector3 screenWorldPosition = UtilsClass.GetScreenWorldPosition();
         enemyTowerPosition = new Vector3(screenWorldPosition.x - (playerTower.position.x * -1), playerTower.position.y, 0f);
-        currentFloorAmount = startingFloorAmount;
         currentTower = CreateNewTower();
     }
 
