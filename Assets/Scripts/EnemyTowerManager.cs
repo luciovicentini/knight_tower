@@ -30,7 +30,9 @@ public class EnemyTowerManager : MonoBehaviour
 
     private EnemyTower CreateNewTower(int playerLevel = 1)
     {
-        EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel));
+        List<FloorData> floorDataList = FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel);
+        int bossLevel = FloorData.GetBossLevel(floorDataList, playerLevel);
+        EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossLevel);
         enemyTower.OnTowerDefeated += EnemyTower_OnTowerDefeated;
         return enemyTower;
     }

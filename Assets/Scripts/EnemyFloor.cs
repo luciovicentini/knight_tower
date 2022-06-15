@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class EnemyFloor : BasicFloor
@@ -17,9 +16,9 @@ public class EnemyFloor : BasicFloor
         return enemyFloor;
     }
 
-    private void OnEnable()
+    private void Awake()
     {
-        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+        levelIndicator = GetComponentInChildren<LevelIndicator>();
     }
 
     private void OnDisable()
@@ -39,19 +38,15 @@ public class EnemyFloor : BasicFloor
         }
     }
 
-    private void Awake()
-    {
-        powerLevelText = transform.Find("levelIndicator").Find("levelIndicatorText").GetComponent<TextMeshPro>();
-    }
-
     void Start()
     {
+        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
         UpdateText();
     }
 
     private void UpdateText()
     {
-        powerLevelText.SetText(floorData.powerLevel.ToString());
+        levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
     }
 
     public bool IsDefeated() => floorData.powerLevel <= 0;

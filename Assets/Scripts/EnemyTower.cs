@@ -6,11 +6,13 @@ using UnityEngine;
 public class EnemyTower : MonoBehaviour
 {
     public event EventHandler OnTowerDefeated;
+    public static event EventHandler OnAllFloorsDefeated;
     public static event EventHandler OnCreateEnemyTower;
 
     private EnemyFloor[] floors;
+    private EnemyBoss enemyBoss;
 
-    public static EnemyTower Create(Vector3 position, List<FloorData> floorLevels)
+    public static EnemyTower Create(Vector3 position, List<FloorData> floorLevels, int bossLevel)
     {
         Transform enemyTowerTransform = Instantiate(GameAssets.Instance.pfEnemyTower, position, Quaternion.identity);
 
@@ -26,11 +28,23 @@ public class EnemyTower : MonoBehaviour
             index++;
         }
 
-        enemyTowerTransform.Find("roof").localPosition = (floorLevels.Count * new Vector3(0f, 1f, 0f)) - new Vector3(0f, .4f, 0f);
+        Transform roofTransform = enemyTowerTransform.Find("roof");
+        roofTransform.localPosition = (floorLevels.Count * new Vector3(0f, 1f, 0f)) - new Vector3(0f, .4f, 0f);
         EnemyTower enemyTower = enemyTowerTransform.GetComponent<EnemyTower>();
-        enemyTower.floors = floors;
-        OnCreateEnemyTower?.Invoke(enemyTower, EventArgs.Empty);
+        SetUpEnemyTower(enemyTower, bossLevel, floors, roofTransform);
+
         return enemyTower;
+    }
+
+    private static void SetUpEnemyTower(EnemyTower enemyTower,
+                                        int bossLevel,
+                                        EnemyFloor[] floors,
+                                        Transform roofTransform)
+    {
+        enemyTower.floors = floors;
+        enemyTower.enemyBoss = roofTransform.Find("pfEnemyBoss").GetComponent<EnemyBoss>();
+        enemyTower.enemyBoss.SetLevel(bossLevel);
+        OnCreateEnemyTower?.Invoke(enemyTower, EventArgs.Empty);
     }
 
     private void Start()
@@ -46,7 +60,8 @@ public class EnemyTower : MonoBehaviour
     {
         if (IsTowerDefeated())
         {
-            OnTowerDefeated?.Invoke(this, EventArgs.Empty);
+            // OnTowerDefeated?.Invoke(this, EventArgs.Empty);
+            OnAllFloorsDefeated?.Invoke(this, EventArgs.Empty);
         }
     }
 

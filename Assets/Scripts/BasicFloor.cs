@@ -6,6 +6,6 @@ using UnityEngine;
 public class BasicFloor : MonoBehaviour
 {
     public FloorData floorData { get; set; }
-    public TextMeshPro powerLevelText { get; set; }
+    public LevelIndicator levelIndicator;
 
 }

@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Floor : BasicFloor
 {
+    private void Awake()
+    {
+        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
+        levelIndicator = GetComponentInChildren<LevelIndicator>();
+    }
+
     private void OnEnable()
     {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
@@ -16,21 +22,14 @@ public class Floor : BasicFloor
         BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
     }
 
-    private void Awake()
-    {
-        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
-        powerLevelText = transform.Find("levelIndicator").Find("levelIndicatorText").GetComponent<TextMeshPro>();
-    }
-
     private void Start()
     {
-        powerLevelText.SetText(floorData.powerLevel.ToString());
+        levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
-        Debug.Log("Player win battle");
         floorData.powerLevel = e.newPlayerLevel;
-        powerLevelText.SetText(floorData.powerLevel.ToString());
+        levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
     }
 }

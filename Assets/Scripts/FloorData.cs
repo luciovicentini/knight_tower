@@ -42,6 +42,17 @@ public class FloorData
         return floorNumberList.OrderBy(a => rng.Next()).ToList();
     }
 
+    public static int GetBossLevel(List<FloorData> floorDataList, int playerLevel)
+    {
+        int bossLevel = playerLevel;
+        foreach (FloorData floorData in floorDataList)
+        {
+            bossLevel += floorData.powerLevel;
+        }
+        bossLevel--;
+        return bossLevel;
+    }
+
     public override string ToString()
     {
         return $"FloorNumber = {floorNumber} - PowerLevel = {powerLevel}";
