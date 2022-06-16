@@ -36,6 +36,11 @@ public class EnemyTower : MonoBehaviour
         return enemyTower;
     }
 
+    internal void InvokeEventTowerDefeated()
+    {
+        OnTowerDefeated?.Invoke(this, EventArgs.Empty);
+    }
+
     private static void SetUpEnemyTower(EnemyTower enemyTower,
                                         int bossLevel,
                                         EnemyFloor[] floors,
@@ -53,14 +58,18 @@ public class EnemyTower : MonoBehaviour
         {
             floors[i].OnFloorDefeated += EnemyFloor_OnFloorDefeated;
         }
+        BattleManager.OnPlayerWinBossBattle += BattleManager_OnPlayerWinBossBattle;
+    }
 
+    private void OnDisable()
+    {
+        BattleManager.OnPlayerWinBossBattle -= BattleManager_OnPlayerWinBossBattle;
     }
 
     private void EnemyFloor_OnFloorDefeated(object sender, EventArgs e)
     {
         if (IsTowerDefeated())
         {
-            // OnTowerDefeated?.Invoke(this, EventArgs.Empty);
             OnAllFloorsDefeated?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -75,6 +84,11 @@ public class EnemyTower : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private void BattleManager_OnPlayerWinBossBattle(object sender, EventArgs e)
+    {
+        OnTowerDefeated?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetFloorAmount() => floors.Length;

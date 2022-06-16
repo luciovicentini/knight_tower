@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour, IDrag
     {
         public EnemyFloor enemyFloor;
     }
+    public static event EventHandler<int> OnPlayerAttackEnemyRoof;
 
     private float floorDetectionRadius = .3f;
 
@@ -18,11 +19,13 @@ public class PlayerMovement : MonoBehaviour, IDrag
     private Vector2 startPosition;
     private bool IsDragging = false;
     private EnemyFloor enemyFloorAttacked;
+    private EnemyRoof enemyRoofAttacked;
 
     public void OnDragEnd()
     {
         if (!IsDragging) return;
         CheckFloorIsAttacked();
+        CheckRoofIsAttacked();
         MovePlayer();
         SendPlayerIsAttackingEvent();
         IsDragging = false;
@@ -115,8 +118,27 @@ public class PlayerMovement : MonoBehaviour, IDrag
 
     private void SendPlayerIsAttackingEvent()
     {
-        if (enemyFloorAttacked == null) return;
-        OnPlayerAttackEnemyFloor?.Invoke(this, new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked });
+        if (enemyFloorAttacked != null)
+        {
+            OnPlayerAttackEnemyFloorEventArgs e = new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked };
+            OnPlayerAttackEnemyFloor?.Invoke(this, e);
+        }
+    }
+
+    private void CheckRoofIsAttacked()
+    {
+        if (enemyFloorAttacked == null)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.TryGetComponent<EnemyRoof>(out EnemyRoof enemyRoof))
+                {
+                    enemyRoofAttacked = enemyRoof;
+                    OnPlayerAttackEnemyRoof?.Invoke(this, enemyRoofAttacked.GetBossLevel());
+                }
+            }
+        }
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)

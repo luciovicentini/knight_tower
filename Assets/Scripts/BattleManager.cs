@@ -16,11 +16,8 @@ public class BattleManager : MonoBehaviour
 
     public event EventHandler OnEnemyWinBattle;
 
-    public enum BattleResolve
-    {
-        PlayerWin,
-        EnemyWin
-    }
+    public static event EventHandler OnPlayerWinBossBattle;
+    public static event EventHandler OnEnemyWinBossBattle;
 
     private void Awake()
     {
@@ -29,20 +26,27 @@ public class BattleManager : MonoBehaviour
 
     public void Resolve(int playerLevel, FloorData enemyFloorData)
     {
-        Debug.Log("[BattleManager](Resolve) - Player is attacking floor number " + enemyFloorData.floorNumber);
-        Debug.Log("[BattleManager](Resolve) - Player Level " + playerLevel);
-        Debug.Log("[BattleManager](Resolve) - Enemy Level " + enemyFloorData.powerLevel);
         if (playerLevel == enemyFloorData.powerLevel || playerLevel > enemyFloorData.powerLevel)
         {
-            Debug.Log("[BattleManager](Resolve) - Player Won");
             OnPlayerWinBattleEventArgs args = new OnPlayerWinBattleEventArgs { newPlayerLevel = playerLevel + enemyFloorData.powerLevel, floorData = enemyFloorData };
             OnPlayerWinBattle?.Invoke(this, args);
         }
         else
         {
-            Debug.Log("[BattleManager](Resolve) - Enemy Won");
             CinemachineShake.Instance.ShakeCamera(1f, .5f);
             OnEnemyWinBattle?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    public void ResolveBossBattle(int playerLevel, int bossLevel)
+    {
+        if (playerLevel == bossLevel || playerLevel > bossLevel)
+        {
+            OnPlayerWinBossBattle?.Invoke(this, EventArgs.Empty);
+        }
+        else
+        {
+            OnEnemyWinBossBattle?.Invoke(this, EventArgs.Empty);
         }
     }
 }

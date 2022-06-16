@@ -8,17 +8,15 @@ public class EnemyTowerManager : MonoBehaviour
 {
 
     [SerializeField]
-    private int startingFloorAmount = 4;
+    private int currentFloorAmount = 4;
 
     private Transform playerTower;
     private Vector3 enemyTowerPosition;
-    private int currentFloorAmount;
     private EnemyTower currentTower;
 
     private void Awake()
     {
         playerTower = GameObject.Find("player").transform;
-        currentFloorAmount = startingFloorAmount;
     }
 
     private void Start()
@@ -28,9 +26,9 @@ public class EnemyTowerManager : MonoBehaviour
         currentTower = CreateNewTower();
     }
 
-    private EnemyTower CreateNewTower(int playerLevel = 1)
+    public EnemyTower CreateNewTower(int playerLevel = 1)
     {
-        List<FloorData> floorDataList = FloorData.GetFloorPowerLevels(currentFloorAmount, playerLevel);
+        List<FloorData> floorDataList = FloorData.GetFloorPowerLevels(++currentFloorAmount, playerLevel);
         int bossLevel = FloorData.GetBossLevel(floorDataList, playerLevel);
         EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossLevel);
         enemyTower.OnTowerDefeated += EnemyTower_OnTowerDefeated;
@@ -44,10 +42,7 @@ public class EnemyTowerManager : MonoBehaviour
 
     private void EnemyTower_OnTowerDefeated(object sender, EventArgs e)
     {
-        Debug.Log($"(EnemyTowerManager) - BattleManager_OnPlayerWinBattle:CurrentTower= {currentTower}");
-
         Destroy(currentTower.gameObject);
-        currentFloorAmount++;
         currentTower = CreateNewTower(playerTower.GetComponentInChildren<Floor>().floorData.powerLevel);
     }
 

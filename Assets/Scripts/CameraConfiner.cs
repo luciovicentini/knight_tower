@@ -24,7 +24,7 @@ public class CameraConfiner : MonoBehaviour
 
         if (floorAmount > 8)
         {
-            scaleY = 12 * (float)floorAmount / 20;
+            scaleY = (12 * (float)floorAmount / 20) + 1;
             positionY = scaleY - 5;
         }
 

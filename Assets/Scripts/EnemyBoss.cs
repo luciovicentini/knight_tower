@@ -7,10 +7,11 @@ using UnityEngine;
 public class EnemyBoss : MonoBehaviour
 {
     private Vector3 bossMovingInStartPosition = new Vector3(4, 10, 0);
-    private float movingInDuration = 2f;
+    private float movingInDuration = 1f;
 
     private Vector3 roofPosition;
     private LevelIndicator levelIndicator;
+    private int bossLevel;
 
     private void Awake()
     {
@@ -31,10 +32,10 @@ public class EnemyBoss : MonoBehaviour
 
     private void EnemyTower_OnAllFloorsDefeated(object sender, EventArgs e)
     {
-        StartCoroutine(MoveBoss());
+        StartCoroutine(MoveBossToRoof());
     }
 
-    private IEnumerator MoveBoss()
+    private IEnumerator MoveBossToRoof()
     {
         float timeElapsed = 0f;
         Vector3 startPosition = transform.localPosition;
@@ -49,6 +50,9 @@ public class EnemyBoss : MonoBehaviour
 
     public void SetLevel(int bossLevel)
     {
+        this.bossLevel = bossLevel;
         levelIndicator.SetPowerLevelText(bossLevel.ToString());
     }
+
+    public int GetBossLevel() => bossLevel;
 }
