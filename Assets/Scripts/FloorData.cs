@@ -15,16 +15,19 @@ public class FloorData
         List<FloorData> floorDataList = new List<FloorData>();
         List<int> randomFloorNumberList = GetRandomFloorNumberList(floorAmount);
 
-        floorDataList.Add(new FloorData
+        FloorData firstFloor = new FloorData
         {
             floorNumber = randomFloorNumberList[0],
             powerLevel = Random.Range(1, playerLevel),
-        });
+        };
+        floorDataList.Add(firstFloor);
 
+        int calculatedPlayerLevel = playerLevel + firstFloor.powerLevel;
         for (int i = 2; i <= floorAmount; i++)
         {
             int lastPowerLevel = floorDataList[i - 2].powerLevel;
-            int randomPowerLevel = lastPowerLevel + Random.Range(1, lastPowerLevel + 1);
+            int randomPowerLevel = Random.Range(lastPowerLevel, calculatedPlayerLevel + 1);
+            calculatedPlayerLevel += randomPowerLevel;
             floorDataList.Add(new FloorData { floorNumber = randomFloorNumberList[i - 1], powerLevel = randomPowerLevel });
         }
 

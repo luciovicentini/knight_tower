@@ -14,6 +14,11 @@ public class Cheat : MonoBehaviour
         {
             DestroyTower();
         }
+
+        if (Keyboard.current[Key.R].wasPressedThisFrame)
+        {
+            RestartGame();
+        }
     }
 
     private void DestroyTower()
@@ -23,10 +28,10 @@ public class Cheat : MonoBehaviour
             enemyTower = GameObject.FindObjectOfType<EnemyTower>();
         }
         enemyTower.InvokeEventTowerDefeated();
+    }
 
-        /* EnemyTowerManager enemyTowerManager = GameObject.FindObjectOfType<EnemyTowerManager>();
-        Floor playerFloor = GameObject.Find("player").GetComponentInChildren<Floor>();
-        Destroy(enemyTower.gameObject);
-        enemyTower = enemyTowerManager.CreateNewTower(playerFloor.floorData.powerLevel); */
+    private void RestartGame()
+    {
+        GameManager.Instance.ResetGame();
     }
 }

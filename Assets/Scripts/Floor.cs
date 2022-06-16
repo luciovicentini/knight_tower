@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class Floor : BasicFloor
 {
+
     private void Awake()
     {
-        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
+        SetStartFloorData();
         levelIndicator = GetComponentInChildren<LevelIndicator>();
+    }
+
+    private void SetStartFloorData()
+    {
+        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
     }
 
     private void OnEnable()
@@ -24,12 +30,23 @@ public class Floor : BasicFloor
 
     private void Start()
     {
-        levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
+        UpdateLevelIndicatorString();
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
     {
         floorData.powerLevel = e.newPlayerLevel;
+        UpdateLevelIndicatorString();
+    }
+
+    private void UpdateLevelIndicatorString()
+    {
         levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
+    }
+
+    public void ResetPlayerFloor()
+    {
+        SetStartFloorData();
+        UpdateLevelIndicatorString();
     }
 }
