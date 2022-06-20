@@ -1,52 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
-public class Floor : BasicFloor
-{
-
-    private void Awake()
-    {
-        SetStartFloorData();
+public class Floor : BasicFloor {
+    private void Awake() {
         levelIndicator = GetComponentInChildren<LevelIndicator>();
     }
 
-    private void SetStartFloorData()
-    {
-        floorData = new FloorData { floorNumber = 1, powerLevel = 1 };
+    private void Start() {
+        UpdateLevelIndicator();
     }
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
     }
 
-    private void Start()
-    {
-        UpdateLevelIndicatorString();
-    }
-
-    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
-    {
+    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e) {
         floorData.powerLevel = e.newPlayerLevel;
-        UpdateLevelIndicatorString();
+        UpdateLevelIndicator();
     }
 
-    private void UpdateLevelIndicatorString()
-    {
-        levelIndicator.SetPowerLevelText(floorData.powerLevel.ToString());
+    private void UpdateLevelIndicator() {
+        levelIndicator.SetPowerLevelText(floorData.GetFullPowerLevelString());
     }
 
-    public void ResetPlayerFloor()
-    {
-        SetStartFloorData();
-        UpdateLevelIndicatorString();
+    public void ResetPlayerFloor() {
+        SetPlayerLevel(FloorData.One());
+        UpdateLevelIndicator();
+    }
+
+    public void SetPlayerLevel(FloorData playerFloorData) {
+        floorData = playerFloorData;
+        UpdateLevelIndicator();
     }
 }

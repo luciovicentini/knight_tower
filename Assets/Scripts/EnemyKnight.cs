@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyKnight : MonoBehaviour
-{
+public class EnemyKnight : MonoBehaviour {
     /* private void OnEnable()
     {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;

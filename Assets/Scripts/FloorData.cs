@@ -1,63 +1,110 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-public class FloorData
-{
+public class FloorData {
+    public FloorData(int powerLevel, int floorNumber, string levelSymbol) {
+        this.powerLevel = powerLevel;
+        this.floorNumber = floorNumber;
+        this.levelSymbol = levelSymbol;
+    }
+
+    public FloorData(int powerLevel) {
+        this.powerLevel = powerLevel;
+        floorNumber = 1;
+        levelSymbol = "";
+    }
+
+    public FloorData(int powerLevel, string levelSymbol) {
+        this.powerLevel = powerLevel;
+        floorNumber = 1;
+        this.levelSymbol = levelSymbol;
+    }
+
     public int powerLevel { get; set; }
     public int floorNumber { get; set; }
+    public string levelSymbol { get; set; }
 
-    private static System.Random rng = new System.Random();
+    public static FloorData One() {
+        return new(1, 1, "");
+    }
 
-    public static List<FloorData> GetFloorPowerLevels(int floorAmount, int playerLevel = 1)
-    {
-        List<FloorData> floorDataList = new List<FloorData>();
-        List<int> randomFloorNumberList = GetRandomFloorNumberList(floorAmount);
+    public override string ToString() {
+        return $"FloorNumber = {floorNumber} - PowerLevel = {powerLevel} {levelSymbol}";
+    }
 
-        FloorData firstFloor = new FloorData
-        {
-            floorNumber = randomFloorNumberList[0],
-            powerLevel = Random.Range(1, playerLevel),
-        };
+    internal string GetFullPowerLevelString() {
+        if (levelSymbol != "")
+            return $"{powerLevel} {levelSymbol}";
+        return powerLevel.ToString();
+    }
+}
+
+public static class FloorDataUtil {
+    private static readonly Random rng = new();
+
+    private static readonly Dictionary<string, string> powerLevelSymbol = new() {
+        { "", "A" }, { "A", "B" }, { "B", "C" }, { "C", "D" }, { "D", "E" }, { "E", "F" }, { "F", "G" },
+        { "G", "H" }, { "H", "I" }, { "I", "J" }, { "J", "K" }, { "K", "L" }, { "L", "M" }, { "M", "N" },
+        { "N", "O" }, { "O", "P" }, { "P", "Q" }, { "Q", "R" }, { "R", "S" }, { "S", "T" }, { "T", "U" },
+        { "U", "V" }, { "V", "W" }, { "W", "X" }, { "X", "Y" }, { "Y", "Z" }, { "Z", "A" }
+    };
+
+    public static List<FloorData> GetFloorPowerLevels(int floorAmount, FloorData playerLevel) {
+        var floorDataList = new List<FloorData>();
+        var randomFloorNumberList = GetRandomFloorNumberList(floorAmount);
+
+        var firstFloor = new FloorData(floorNumber: randomFloorNumberList[0],
+            powerLevel: UnityEngine.Random.Range(1, playerLevel.powerLevel),
+            levelSymbol: "");
+
         floorDataList.Add(firstFloor);
 
-        int calculatedPlayerLevel = playerLevel + firstFloor.powerLevel;
-        for (int i = 2; i <= floorAmount; i++)
-        {
-            int lastPowerLevel = floorDataList[i - 2].powerLevel;
-            int randomPowerLevel = Random.Range(lastPowerLevel, calculatedPlayerLevel + 1);
+        var calculatedPlayerLevel = playerLevel.powerLevel + firstFloor.powerLevel;
+        for (var i = 2; i <= floorAmount; i++) {
+            var lastPowerLevel = floorDataList[i - 2].powerLevel;
+            var randomPowerLevel = UnityEngine.Random.Range(lastPowerLevel, calculatedPlayerLevel + 1);
             calculatedPlayerLevel += randomPowerLevel;
-            floorDataList.Add(new FloorData { floorNumber = randomFloorNumberList[i - 1], powerLevel = randomPowerLevel });
+            floorDataList.Add(new FloorData(floorNumber: randomFloorNumberList[i - 1], powerLevel: randomPowerLevel,
+                levelSymbol: ""));
         }
 
         return floorDataList.OrderBy(a => rng.Next()).ToList();
     }
 
-    private static List<int> GetRandomFloorNumberList(int floorAmount)
-    {
-        List<int> floorNumberList = new List<int>();
-        for (int i = 1; i <= floorAmount; i++)
-        {
-            floorNumberList.Add(i);
-        }
+    private static List<int> GetRandomFloorNumberList(int floorAmount) {
+        var floorNumberList = new List<int>();
+        for (var i = 1; i <= floorAmount; i++) floorNumberList.Add(i);
 
         return floorNumberList.OrderBy(a => rng.Next()).ToList();
     }
 
-    public static int GetBossLevel(List<FloorData> floorDataList, int playerLevel)
-    {
-        int bossLevel = playerLevel;
-        foreach (FloorData floorData in floorDataList)
-        {
-            bossLevel += floorData.powerLevel;
-        }
+    public static FloorData GetBossLevel(List<FloorData> floorDataList, FloorData playerLevel) {
+        var bossLevel = playerLevel.powerLevel;
+        foreach (var floorData in floorDataList) bossLevel += floorData.powerLevel;
         bossLevel--;
-        return bossLevel;
+        return new FloorData(bossLevel, -1, playerLevel.levelSymbol);
     }
 
-    public override string ToString()
-    {
-        return $"FloorNumber = {floorNumber} - PowerLevel = {powerLevel}";
+    public static void UpdatePlayerLevel(ref FloorData data) {
+        if (data.powerLevel < 1000) return;
+
+        var timesNextSymbol = 0;
+        while (data.powerLevel >= 1000) {
+            data.powerLevel = data.powerLevel / 1000;
+            timesNextSymbol++;
+        }
+
+        for (var i = 0; i < timesNextSymbol; i++) data.levelSymbol = GetNextLevelSymbol(data.levelSymbol);
+    }
+
+    private static string GetNextLevelSymbol(string levelSymbol) {
+        if (levelSymbol.Length == 0 || levelSymbol.Length == 1) {
+            return powerLevelSymbol[levelSymbol];
+        }
+
+        var result = "";
+        foreach (var c in levelSymbol) result += powerLevelSymbol[c.ToString()];
+        return result;
     }
 }

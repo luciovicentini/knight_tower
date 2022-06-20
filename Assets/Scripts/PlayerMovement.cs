@@ -1,28 +1,37 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IDrag
-{
-    public event EventHandler<OnPlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
-    public class OnPlayerAttackEnemyFloorEventArgs : EventArgs
-    {
-        public EnemyFloor enemyFloor;
-    }
-    public static event EventHandler<int> OnPlayerAttackEnemyRoof;
-
-    private float floorDetectionRadius = .3f;
-
+public class PlayerMovement : MonoBehaviour, IDrag {
     private Vector2 draggingPosition;
-    private Vector2 startPosition;
-    private bool IsDragging = false;
     private EnemyFloor enemyFloorAttacked;
     private EnemyRoof enemyRoofAttacked;
 
-    public void OnDragEnd()
-    {
+    private readonly float floorDetectionRadius = .3f;
+    private bool IsDragging;
+    private Vector2 startPosition;
+
+    private void Awake() {
+        startPosition = transform.position;
+        draggingPosition = transform.position;
+    }
+
+    private void Start() {
+        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
+        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
+    }
+
+    private void Update() {
+        if (IsDragging) transform.position = draggingPosition;
+    }
+
+    private void OnDisable() {
+        BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
+        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
+    }
+
+    public void OnDragEnd() {
         if (!IsDragging) return;
         CheckFloorIsAttacked();
         CheckRoofIsAttacked();
@@ -31,123 +40,79 @@ public class PlayerMovement : MonoBehaviour, IDrag
         IsDragging = false;
     }
 
-    public void OnDragging(Vector2 position)
-    {
+    public void OnDragging(Vector2 position) {
         draggingPosition = position;
     }
 
 
-    public void OnDragStart(Vector2 position)
-    {
+    public void OnDragStart(Vector2 position) {
         draggingPosition = position;
         IsDragging = true;
     }
 
-    private void Awake()
-    {
-        startPosition = transform.position;
-        draggingPosition = transform.position;
-    }
+    public event EventHandler<OnPlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
+    public static event EventHandler<FloorData> OnPlayerAttackEnemyRoof;
 
-    private void Start()
-    {
-        BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
-        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
-    }
+    private void CheckFloorIsAttacked() {
+        var colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
+        var enemyFloorList = new List<EnemyFloor>();
 
-    private void OnDisable()
-    {
-        BattleManager.Instance.OnPlayerWinBattle -= BattleManager_OnPlayerWinBattle;
-        BattleManager.Instance.OnEnemyWinBattle += BattleManager_OnEnemyWinBattle;
-
-    }
-
-    private void Update()
-    {
-        if (IsDragging)
-        {
-            transform.position = draggingPosition;
-        }
-    }
-
-    private void CheckFloorIsAttacked()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
-        List<EnemyFloor> enemyFloorList = new List<EnemyFloor>();
-
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.TryGetComponent<EnemyFloor>(out EnemyFloor enemyFloor))
-            {
+        foreach (var collider in colliders)
+            if (collider.TryGetComponent(out EnemyFloor enemyFloor))
                 enemyFloorList.Add(enemyFloor);
-            }
-        }
 
-        if (enemyFloorList.Count == 0)
-        {
+        if (enemyFloorList.Count == 0) {
             enemyFloorAttacked = null;
         }
-        else
-        {
-            enemyFloorList = enemyFloorList.OrderBy(ef => Vector2.Distance(transform.position, ef.transform.position)).ToList();
+        else {
+            enemyFloorList = enemyFloorList.OrderBy(ef => Vector2.Distance(transform.position, ef.transform.position))
+                .ToList();
             enemyFloorAttacked = enemyFloorList[0];
         }
     }
 
-    private void MovePlayer()
-    {
+    private void MovePlayer() {
         if (enemyFloorAttacked != null)
-        {
             MoveToFloor();
-        }
         else
-        {
             MoveToStart();
-        }
     }
 
-    private void MoveToFloor()
-    {
+    private void MoveToFloor() {
         transform.position = enemyFloorAttacked.transform.position;
     }
 
-    private void MoveToStart()
-    {
+    private void MoveToStart() {
         transform.position = startPosition;
     }
 
-    private void SendPlayerIsAttackingEvent()
-    {
-        if (enemyFloorAttacked != null)
-        {
-            OnPlayerAttackEnemyFloorEventArgs e = new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked };
+    private void SendPlayerIsAttackingEvent() {
+        if (enemyFloorAttacked != null) {
+            var e = new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked };
             OnPlayerAttackEnemyFloor?.Invoke(this, e);
         }
     }
 
-    private void CheckRoofIsAttacked()
-    {
-        if (enemyFloorAttacked == null)
-        {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.TryGetComponent<EnemyRoof>(out EnemyRoof enemyRoof))
-                {
+    private void CheckRoofIsAttacked() {
+        if (enemyFloorAttacked == null) {
+            var colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
+            foreach (var collider in colliders)
+                if (collider.TryGetComponent(out EnemyRoof enemyRoof)) {
                     enemyRoofAttacked = enemyRoof;
-                    OnPlayerAttackEnemyRoof?.Invoke(this, enemyRoofAttacked.GetBossLevel());
+                    OnPlayerAttackEnemyRoof?.Invoke(this, enemyRoofAttacked.GetBossData());
                 }
-            }
         }
     }
 
-    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e)
-    {
+    private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e) {
         MoveToStart();
     }
 
-    private void BattleManager_OnEnemyWinBattle(object sender, EventArgs e)
-    {
+    private void BattleManager_OnEnemyWinBattle(object sender, EventArgs e) {
         MoveToStart();
+    }
+
+    public class OnPlayerAttackEnemyFloorEventArgs : EventArgs {
+        public EnemyFloor enemyFloor;
     }
 }

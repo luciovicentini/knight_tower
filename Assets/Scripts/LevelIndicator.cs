@@ -1,19 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelIndicator : MonoBehaviour
-{
+public class LevelIndicator : MonoBehaviour {
     private TextMeshPro powerLevelText;
 
-    private void Awake()
-    {
+    private void Awake() {
         powerLevelText = GetComponentInChildren<TextMeshPro>();
     }
 
-    public void SetPowerLevelText(string powerLevel)
-    {
+    public void SetPowerLevelText(string powerLevel) {
         powerLevelText.SetText(powerLevel);
     }
 }
