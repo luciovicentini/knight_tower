@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfEnemyTower: {fileID: 4325690066342673428, guid: e361a23170b274e0c9c6ea7b2fd3064c, type: 3}
   pfEnemyFloor: {fileID: 820468040960551250, guid: 0c65ecedc950f4e9dab746267bada22f, type: 3}
+  pfEnemyBoss: {fileID: 7917387898096284323, guid: bcf41513ebb204281b793a59b7700c3d, type: 3}

@@ -5,7 +5,8 @@ public class GameAssets : MonoBehaviour {
 
     public Transform pfEnemyTower;
     public Transform pfEnemyFloor;
-
+    public Transform pfEnemyBoss;
+    
     public static GameAssets Instance {
         get {
             if (instance == null) instance = Resources.Load<GameAssets>("GameAssets");

@@ -1,15 +1,16 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTowerManager : MonoBehaviour {
-    [SerializeField] private int currentFloorAmount = 4;
-
+    
     private EnemyTower currentTower;
     private Vector3 enemyTowerPosition;
     private Floor playerFloor;
 
     private Transform playerTower;
-
+    
+    
     private void Awake() {
         playerTower = GameObject.Find("player").transform;
         playerFloor = playerTower.GetComponentInChildren<Floor>();
@@ -29,12 +30,10 @@ public class EnemyTowerManager : MonoBehaviour {
         EnemyTower.OnTowerDefeated -= EnemyTower_OnTowerDefeated;
     }
 
-    private EnemyTower CreateNewTower(int floorAmount, FloorData playerFloorData) {
-        
-        
-        var floorDataList = FloorDataUtil.GetFloorPowerLevels(floorAmount, playerFloorData);
-        var bossData = FloorDataUtil.GetBossLevel(floorDataList, playerFloorData);
-        var enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossData);
+    private EnemyTower CreateNewTower(FloorData playerFloorData) {
+        List<FloorData> floorDataList = FloorDataUtil.GetFloorPowerLevels(GameManager.Instance.nextTowerLevel, playerFloorData);
+        FloorData bossData = FloorDataUtil.GetBossLevel(floorDataList, playerFloorData);
+        EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossData);
         
         return enemyTower;
     }
@@ -45,14 +44,14 @@ public class EnemyTowerManager : MonoBehaviour {
 
     private void CreateNextTower() {
         if (currentTower != null) Destroy(currentTower.gameObject);
+        // TODO el update del player floor data deberia estar en su clase, no acá.
         var playerFloorFloorData = playerFloor.floorData;
         FloorDataUtil.UpdatePlayerLevel(ref playerFloorFloorData);
         playerFloor.SetPlayerLevel(playerFloorFloorData);
-        currentTower = CreateNewTower(++currentFloorAmount, playerFloorFloorData);
+        currentTower = CreateNewTower(playerFloorFloorData);
     }
 
     public void ResetTowerManager() {
-        currentFloorAmount = 0;
         CreateNextTower();
     }
 }

@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Random = System.Random;
 
 public class FloorData {
     public FloorData(int powerLevel, int floorNumber, string levelSymbol) {
@@ -41,9 +42,9 @@ public class FloorData {
 }
 
 public static class FloorDataUtil {
-    private static readonly Random rng = new();
+    private static readonly Random Rng = new();
 
-    private static readonly Dictionary<string, string> powerLevelSymbol = new() {
+    private static readonly Dictionary<string, string> PowerLevelSymbol = new() {
         { "", "A" }, { "A", "B" }, { "B", "C" }, { "C", "D" }, { "D", "E" }, { "E", "F" }, { "F", "G" },
         { "G", "H" }, { "H", "I" }, { "I", "J" }, { "J", "K" }, { "K", "L" }, { "L", "M" }, { "M", "N" },
         { "N", "O" }, { "O", "P" }, { "P", "Q" }, { "Q", "R" }, { "R", "S" }, { "S", "T" }, { "T", "U" },
@@ -69,21 +70,46 @@ public static class FloorDataUtil {
                 levelSymbol: ""));
         }
 
-        return floorDataList.OrderBy(a => rng.Next()).ToList();
+        return floorDataList.OrderBy(a => Rng.Next()).ToList();
     }
 
     private static List<int> GetRandomFloorNumberList(int floorAmount) {
         var floorNumberList = new List<int>();
-        for (var i = 1; i <= floorAmount; i++) floorNumberList.Add(i);
+        for (var i = 1; i <= floorAmount; i++) {
+            floorNumberList.Add(i);
+        }
 
-        return floorNumberList.OrderBy(a => rng.Next()).ToList();
+        return floorNumberList.OrderBy(a => Rng.Next()).ToList();
     }
 
     public static FloorData GetBossLevel(List<FloorData> floorDataList, FloorData playerLevel) {
-        var bossLevel = playerLevel.powerLevel;
-        foreach (var floorData in floorDataList) bossLevel += floorData.powerLevel;
-        bossLevel--;
+        int bossLevel = GetPlayerLevelWhenFacingBoss(floorDataList, playerLevel);
+
+
+        if (ShouldPlayerLoseBossBattle()) {
+            bossLevel = Rng.Next(bossLevel + 1, bossLevel + 100);
+        }
+        else {
+            int minBossLevel = Mathf.Clamp((bossLevel - 100), 1, bossLevel);
+            bossLevel = Rng.Next(minBossLevel, bossLevel);
+        }
+
         return new FloorData(bossLevel, -1, playerLevel.levelSymbol);
+    }
+
+    private static bool ShouldPlayerLoseBossBattle() {
+        int randomNumber = Rng.Next(1, 500);
+        return randomNumber < GameManager.Instance.nextTowerLevel;
+    }
+
+    public static int GetPlayerLevelWhenFacingBoss(List<FloorData> floorDataList, FloorData playerLevel) {
+        int playerLevelWhenFacingBoss = playerLevel.powerLevel;
+        
+        foreach (var floorData in floorDataList) {
+            playerLevelWhenFacingBoss += floorData.powerLevel;
+        }
+
+        return playerLevelWhenFacingBoss;
     }
 
     public static void UpdatePlayerLevel(ref FloorData data) {
@@ -100,11 +126,11 @@ public static class FloorDataUtil {
 
     private static string GetNextLevelSymbol(string levelSymbol) {
         if (levelSymbol.Length == 0 || levelSymbol.Length == 1) {
-            return powerLevelSymbol[levelSymbol];
+            return PowerLevelSymbol[levelSymbol];
         }
 
         var result = "";
-        foreach (var c in levelSymbol) result += powerLevelSymbol[c.ToString()];
+        foreach (var c in levelSymbol) result += PowerLevelSymbol[c.ToString()];
         return result;
     }
 }
