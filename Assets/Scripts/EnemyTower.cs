@@ -9,7 +9,9 @@ public class EnemyTower : MonoBehaviour {
     private EnemyFloor[] floors;
 
     private void Start() {
-        for (var i = 0; i < floors.Length; i++) floors[i].OnFloorDefeated += EnemyFloor_OnFloorDefeated;
+        for (var i = 0; i < floors.Length; i++) {
+            floors[i].OnFloorDefeated += EnemyFloor_OnFloorDefeated;
+        }
         BattleManager.OnPlayerWinBossBattle += BattleManager_OnPlayerWinBossBattle;
     }
 
@@ -17,7 +19,7 @@ public class EnemyTower : MonoBehaviour {
         BattleManager.OnPlayerWinBossBattle -= BattleManager_OnPlayerWinBossBattle;
     }
 
-    public event EventHandler OnTowerDefeated;
+    public static event EventHandler OnTowerDefeated;
     public static event EventHandler OnAllFloorsDefeated;
     public static event EventHandler OnCreateEnemyTower;
 

@@ -5,6 +5,7 @@ public class Floor : BasicFloor {
 
     private void Start() {
         UpdateLevelIndicator();
+        floorData = FloorData.One();
     }
 
     private void OnEnable() {
@@ -21,6 +22,7 @@ public class Floor : BasicFloor {
     }
 
     private void UpdateLevelIndicator() {
+        if (floorData == null) return;
         levelIndicator.SetPowerLevelText(floorData.GetFullPowerLevelString());
     }
 
