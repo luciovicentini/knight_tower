@@ -1,7 +1,10 @@
 using System;
 using UnityEngine;
 
-public class EnemyFloor : BasicFloor {
+public class EnemyFloor : BasicFloor, IPressed {
+
+    public static event EventHandler OnEnemyFloorPressed; 
+
     private void Awake() {
         levelIndicator = GetComponentInChildren<LevelIndicator>();
     }
@@ -39,5 +42,9 @@ public class EnemyFloor : BasicFloor {
 
     public bool IsDefeated() {
         return floorData.powerLevel <= 0;
+    }
+
+    public void OnPressed() {
+        OnEnemyFloorPressed?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -39,21 +39,25 @@ public class InputManager : MonoBehaviour {
     }
 
     private void PressInput_performed(InputAction.CallbackContext obj) {
-        var ray = mainCamera.ScreenPointToRay(inputPosition);
+        Ray ray = mainCamera.ScreenPointToRay(inputPosition);
 
-        var hits2DArray = Physics2D.GetRayIntersectionAll(ray);
+        RaycastHit2D[] hits2DArray = Physics2D.GetRayIntersectionAll(ray);
 
-        foreach (var hit2D in hits2DArray)
+        foreach (var hit2D in hits2DArray) {
             if (hit2D.collider != null) {
-                var iDragComponent = hit2D.collider.transform.GetComponent<IDrag>();
+                IDrag iDragComponent = hit2D.collider.transform.GetComponent<IDrag>();
                 if (iDragComponent != null) {
                     iDragComponentList.Add(iDragComponent);
                     iDragComponent.OnDragStart(GetPointerWorldPosition());
                 }
+
+                if (hit2D.collider.TryGetComponent(out IPressed pressed)) {
+                    pressed.OnPressed();   
+                }
             }
+        }
 
         StartCameraDragging();
-
         StartCoroutine(DragUpdate());
     }
 

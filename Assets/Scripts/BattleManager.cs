@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour {
     public static BattleManager Instance;
+    
 
     private void Awake() {
         Instance = this;
@@ -14,8 +15,10 @@ public class BattleManager : MonoBehaviour {
 
     public static event EventHandler OnPlayerWinBossBattle;
     public static event EventHandler OnEnemyWinBossBattle;
+    public static event EventHandler OnBattleStart;
 
     public void Resolve(int playerLevel, FloorData enemyFloorData) {
+        OnBattleStart?.Invoke(this, EventArgs.Empty);
         if (playerLevel == enemyFloorData.powerLevel || playerLevel > enemyFloorData.powerLevel) {
             var args = new OnPlayerWinBattleEventArgs
                 { newPlayerLevel = playerLevel + enemyFloorData.powerLevel, floorData = enemyFloorData };
@@ -28,6 +31,7 @@ public class BattleManager : MonoBehaviour {
     }
 
     public void ResolveBossBattle(int playerLevel, int bossLevel) {
+        OnBattleStart?.Invoke(this, EventArgs.Empty);
         if (playerLevel == bossLevel || playerLevel > bossLevel)
             OnPlayerWinBossBattle?.Invoke(this, EventArgs.Empty);
         else
