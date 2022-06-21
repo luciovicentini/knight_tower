@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class CameraConfiner : MonoBehaviour {
-    private void Start() {
+    private void Awake() {
         EnemyTower.OnCreateEnemyTower += EnemyTower_OnCreateEnemyTower;
     }
 
@@ -11,10 +11,10 @@ public class CameraConfiner : MonoBehaviour {
     }
 
     private void EnemyTower_OnCreateEnemyTower(object sender, EventArgs e) {
-        var floorAmount = ((EnemyTower)sender).GetFloorAmount();
+        int floorAmount = ((EnemyTower)sender).GetFloorAmount();
 
-        var scaleY = 5f;
-        var positionY = 0f;
+        float scaleY = 5f;
+        float positionY = 0f;
 
         if (floorAmount > 8) {
             scaleY = 12 * (float)floorAmount / 20 + 1;

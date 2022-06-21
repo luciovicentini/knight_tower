@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour {
-    //public event 
 
     [SerializeField] private InputAction positionInput;
-
     [SerializeField] private InputAction pressInput;
 
     private List<IDrag> iDragComponentList;
@@ -60,7 +58,9 @@ public class InputManager : MonoBehaviour {
     }
 
     private void PressInput_canceled(InputAction.CallbackContext obj) {
-        foreach (var iDragComponent in iDragComponentList) iDragComponent?.OnDragEnd();
+        foreach (var iDragComponent in iDragComponentList) {
+            iDragComponent?.OnDragEnd();
+        }
         iDragComponentList = new List<IDrag>();
     }
 

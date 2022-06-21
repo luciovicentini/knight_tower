@@ -24,21 +24,20 @@ public class EnemyTower : MonoBehaviour {
             index++;
         }
 
-        var roofTransform = enemyTowerTransform.Find("roof");
-        roofTransform.localPosition = floorLevels.Count * new Vector3(0f, 1f, 0f) - new Vector3(0f, .4f, 0f);
-        
         var enemyTower = enemyTowerTransform.GetComponent<EnemyTower>();
-        SetUpEnemyTower(enemyTower, bossData, floors, roofTransform.GetComponent<EnemyRoof>());
+        
+        enemyTower.enemyRoof = enemyTowerTransform.Find("roof").GetComponent<EnemyRoof>();
+        enemyTower.enemyRoof.transform.localPosition = floorLevels.Count * new Vector3(0f, 1f, 0f) - new Vector3(0f, .4f, 0f);
+        
+        SetUpEnemyTower(enemyTower, bossData, floors);
         OnCreateEnemyTower?.Invoke(enemyTower, EventArgs.Empty);
         return enemyTower;
     }
     
-    private static void SetUpEnemyTower(EnemyTower enemyTower, FloorData bossData,
-        EnemyFloor[] floors,
-        EnemyRoof enemyRoof) {
+    private static void SetUpEnemyTower(EnemyTower enemyTower, FloorData bossData, EnemyFloor[] floors) {
         enemyTower.floors = floors;
         if (ShouldShowBoss()) {
-            enemyTower.enemyBoss = EnemyBoss.Create(enemyRoof, bossData);
+            enemyTower.enemyBoss = EnemyBoss.Create(enemyTower.enemyRoof, bossData);
         }
     }
     
@@ -48,6 +47,7 @@ public class EnemyTower : MonoBehaviour {
     
     private EnemyBoss enemyBoss;
     private EnemyFloor[] floors;
+    private EnemyRoof enemyRoof;
 
     private void Start() {
         for (var i = 0; i < floors.Length; i++) {
@@ -86,4 +86,6 @@ public class EnemyTower : MonoBehaviour {
         OnTowerDefeated?.Invoke(this, EventArgs.Empty);
     }
     public int GetFloorAmount() => floors.Length;
+
+    public Vector3 GetRoofWorldPosition() => transform.position + enemyRoof.transform.localPosition;
 }
