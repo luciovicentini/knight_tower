@@ -4,8 +4,8 @@ public class Floor : BasicFloor {
     }
 
     private void Start() {
-        UpdateLevelIndicator();
         floorData = FloorData.One();
+        UpdateLevelIndicator();
     }
 
     private void OnEnable() {

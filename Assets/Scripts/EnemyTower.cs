@@ -18,8 +18,7 @@ public class EnemyTower : MonoBehaviour {
         var index = 0;
         foreach (var floorData in floorLevels) {
             var floorPosition = (floorData.floorNumber - 1) * new Vector3(0, 1f, 0);
-            var floor = EnemyFloor.Create(enemyTowerTransform, floorPosition);
-            floor.floorData = floorData;
+            var floor = EnemyFloor.Create(enemyTowerTransform, floorPosition, floorData);
             floors[index] = floor;
             index++;
         }

@@ -35,8 +35,9 @@ public class FloorData {
     }
 
     internal string GetFullPowerLevelString() {
-        if (levelSymbol != "")
+        if (levelSymbol != "") {
             return $"{powerLevel} {levelSymbol}";
+        }
         return powerLevel.ToString();
     }
 }
@@ -57,7 +58,7 @@ public static class FloorDataUtil {
 
         var firstFloor = new FloorData(floorNumber: randomFloorNumberList[0],
             powerLevel: UnityEngine.Random.Range(1, playerLevel.powerLevel),
-            levelSymbol: "");
+            levelSymbol: playerLevel.levelSymbol);
 
         floorDataList.Add(firstFloor);
 
@@ -67,7 +68,7 @@ public static class FloorDataUtil {
             var randomPowerLevel = UnityEngine.Random.Range(lastPowerLevel, calculatedPlayerLevel + 1);
             calculatedPlayerLevel += randomPowerLevel;
             floorDataList.Add(new FloorData(floorNumber: randomFloorNumberList[i - 1], powerLevel: randomPowerLevel,
-                levelSymbol: ""));
+                levelSymbol: playerLevel.levelSymbol));
         }
 
         return floorDataList.OrderBy(a => Rng.Next()).ToList();
@@ -88,8 +89,7 @@ public static class FloorDataUtil {
 
         if (ShouldPlayerLoseBossBattle()) {
             bossLevel = Rng.Next(bossLevel + 1, bossLevel + 100);
-        }
-        else {
+        } else {
             int minBossLevel = Mathf.Clamp((bossLevel - 100), 1, bossLevel);
             bossLevel = Rng.Next(minBossLevel, bossLevel);
         }
@@ -112,8 +112,8 @@ public static class FloorDataUtil {
         return playerLevelWhenFacingBoss;
     }
 
-    public static void UpdatePlayerLevel(ref FloorData data) {
-        if (data.powerLevel < 1000) return;
+    public static FloorData UpdatePlayerLevel(FloorData data) {
+        if (data.powerLevel < 1000) return data;
 
         var timesNextSymbol = 0;
         while (data.powerLevel >= 1000) {
@@ -122,6 +122,7 @@ public static class FloorDataUtil {
         }
 
         for (var i = 0; i < timesNextSymbol; i++) data.levelSymbol = GetNextLevelSymbol(data.levelSymbol);
+        return data;
     }
 
     private static string GetNextLevelSymbol(string levelSymbol) {

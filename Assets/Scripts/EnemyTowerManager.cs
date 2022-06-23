@@ -30,7 +30,9 @@ public class EnemyTowerManager : MonoBehaviour {
         EnemyTower.OnTowerDefeated -= EnemyTower_OnTowerDefeated;
     }
 
-    private EnemyTower CreateNewTower(FloorData playerFloorData) {
+    private EnemyTower CreateNewTower() {
+        FloorData playerFloorData = FloorDataUtil.UpdatePlayerLevel(playerFloor.floorData);
+        playerFloor.SetPlayerLevel(playerFloorData);
         List<FloorData> floorDataList = FloorDataUtil.GetFloorPowerLevels(GameManager.Instance.nextTowerLevel, playerFloorData);
         FloorData bossData = FloorDataUtil.GetBossLevel(floorDataList, playerFloorData);
         EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossData);
@@ -44,11 +46,7 @@ public class EnemyTowerManager : MonoBehaviour {
 
     private void CreateNextTower() {
         if (currentTower != null) Destroy(currentTower.gameObject);
-        // TODO el update del player floor data deberia estar en su clase, no acá.
-        var playerFloorFloorData = playerFloor.floorData;
-        FloorDataUtil.UpdatePlayerLevel(ref playerFloorFloorData);
-        playerFloor.SetPlayerLevel(playerFloorFloorData);
-        currentTower = CreateNewTower(playerFloorFloorData);
+        currentTower = CreateNewTower();
     }
 
     public void ResetTowerManager() {
