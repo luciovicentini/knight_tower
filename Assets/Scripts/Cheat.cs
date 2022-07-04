@@ -11,7 +11,7 @@ public class Cheat : MonoBehaviour {
     }
 
     private void DestroyTower() {
-        if (enemyTower.Equals(null)) enemyTower = FindObjectOfType<EnemyTower>();
+        if (null == enemyTower) enemyTower = FindObjectOfType<EnemyTower>();
         enemyTower.InvokeEventTowerDefeated();
     }
 

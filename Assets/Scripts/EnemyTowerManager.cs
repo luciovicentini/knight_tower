@@ -17,7 +17,7 @@ public class EnemyTowerManager : MonoBehaviour {
     }
 
     private void Start() {
-        var screenWorldPosition = UtilsClass.GetScreenWorldPosition();
+        var screenWorldPosition = UtilsClass.GetTopRightWorldCameraPosition();
         enemyTowerPosition =
             new Vector3(screenWorldPosition.x - playerTower.position.x * -1, playerTower.position.y, 0f);
         EnemyTower.OnTowerDefeated += EnemyTower_OnTowerDefeated;

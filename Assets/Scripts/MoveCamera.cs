@@ -2,13 +2,18 @@ using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Screen = UnityEngine.Device.Screen;
 
 public class MoveCamera : MonoBehaviour, IDrag {
+    [SerializeField] private float draggingMarginY = 2f;
+    
     private EnemyTower enemyTower;
     private Vector2 draggingPosition;
-    private bool isDragging;
     private Vector2 startingPosition;
     private float moveSpeed = 5f;
+    
+    private bool isDragging;
+    
 
     private void Awake() {
         BattleManager.Instance.OnPlayerWinBattle += BattleManager_OnPlayerWinBattle;
@@ -18,7 +23,6 @@ public class MoveCamera : MonoBehaviour, IDrag {
 
     private void Start() {
         startingPosition = transform.position;
-        
     }
 
     private void OnDisable() {
@@ -33,11 +37,44 @@ public class MoveCamera : MonoBehaviour, IDrag {
 
     private void Update() {
         if (!isDragging) return;
-        
-        Vector3 dir = ((Vector3)draggingPosition - transform.position).normalized;
+        if (IsDraggingUp()) {
+            Debug.Log("IsDraggingUp");
+            MoveCameraUp();
+        } else if (IsDraggingDown()) {
+            Debug.Log("IsDraggingDown");
+            MoveCameraDown();
+        }
+    }
+
+    private void MoveCameraUp() {
+        MoveCameraDir(Vector2.up);
+    }
+
+    private void MoveCameraDown() {
+        MoveCameraDir(Vector2.down);
+    }
+
+    private void MoveCameraDir(Vector2 dir) {
         float y = transform.position.y + dir.y * moveSpeed * Time.deltaTime;
-        y = Mathf.Clamp(y, 0, enemyTower.GetRoofWorldPosition().y);
-        transform.position = new Vector3(0,y,0);
+        float enemyRoofY = Mathf.Clamp(enemyTower.GetRoofWorldPosition().y, 0, float.PositiveInfinity);
+        y = Mathf.Clamp(y, 0, enemyRoofY);
+        transform.position = new Vector3(0, y,0);
+    }
+
+    private bool IsDraggingUp() {
+        if (draggingPosition.y > UtilsClass.GetTopRightWorldCameraPosition().y - draggingMarginY) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsDraggingDown() {
+        if (draggingPosition.y < UtilsClass.GetDownLeftWorldCameraPosition().y + draggingMarginY) {
+            return true;
+        }
+
+        return false;
     }
 
     public void OnDragEnd() {
@@ -53,11 +90,11 @@ public class MoveCamera : MonoBehaviour, IDrag {
     }
 
     private void BattleManager_OnEnemyWinBattle(object sender, EventArgs e) {
-        // ResetPosition();
+        ResetPosition();
     }
 
     private void BattleManager_OnPlayerWinBattle(object sender, BattleManager.OnPlayerWinBattleEventArgs e) {
-        // ResetPosition();
+        ResetPosition();
     }
 
     private void ResetPosition() {

@@ -87,4 +87,6 @@ public class EnemyTower : MonoBehaviour {
     public int GetFloorAmount() => floors.Length;
 
     public Vector3 GetRoofWorldPosition() => transform.position + enemyRoof.transform.localPosition;
+
+    public Vector3 GetFirstFloorPosition() => transform.position;
 }
