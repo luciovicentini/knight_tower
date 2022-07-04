@@ -38,10 +38,8 @@ public class MoveCamera : MonoBehaviour, IDrag {
     private void Update() {
         if (!isDragging) return;
         if (IsDraggingUp()) {
-            Debug.Log("IsDraggingUp");
             MoveCameraUp();
         } else if (IsDraggingDown()) {
-            Debug.Log("IsDraggingDown");
             MoveCameraDown();
         }
     }

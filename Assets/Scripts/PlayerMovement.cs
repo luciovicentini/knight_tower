@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour, IDrag {
         IsDragging = true;
     }
 
-    public event EventHandler<OnPlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
+    public static event EventHandler<OnPlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
     public class OnPlayerAttackEnemyFloorEventArgs : EventArgs {
         public EnemyFloor enemyFloor;
     }

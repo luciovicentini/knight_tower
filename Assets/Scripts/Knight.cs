@@ -2,25 +2,24 @@ using System;
 using UnityEngine;
 
 public class Knight : MonoBehaviour {
+    
     private Floor playerFloor;
-    private PlayerMovement playerMovement;
     private KnightSelector knightSelector;
 
     private void Awake() {
         playerFloor = transform.parent.GetComponent<Floor>();
-        playerMovement = transform.GetComponent<PlayerMovement>();
         knightSelector = transform.GetComponent<KnightSelector>();
     }
 
     private void Start() {
-        playerMovement.OnPlayerAttackEnemyFloor += PlayerMovement_OnPlayerAttackEnemyFloor;
+        PlayerMovement.OnPlayerAttackEnemyFloor += PlayerMovement_OnPlayerAttackEnemyFloor;
         PlayerMovement.OnPlayerAttackEnemyRoof += PlayerMovement_OnPlayerAttackEnemyRoof;
         EnemyFloor.OnEnemyFloorPressed += EnemyFloor_OnEnemyFloorPressed;
         EnemyRoof.OnEnemyRoofPressed += EnemyRoof_OnEnemyRoofPressed;
     }
 
     private void OnDisable() {
-        playerMovement.OnPlayerAttackEnemyFloor -= PlayerMovement_OnPlayerAttackEnemyFloor;
+        PlayerMovement.OnPlayerAttackEnemyFloor -= PlayerMovement_OnPlayerAttackEnemyFloor;
         PlayerMovement.OnPlayerAttackEnemyRoof -= PlayerMovement_OnPlayerAttackEnemyRoof;
         EnemyFloor.OnEnemyFloorPressed -= EnemyFloor_OnEnemyFloorPressed;
         EnemyRoof.OnEnemyRoofPressed -= EnemyRoof_OnEnemyRoofPressed;
