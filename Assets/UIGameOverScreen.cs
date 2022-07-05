@@ -9,7 +9,6 @@ public class UIGameOverScreen : MonoBehaviour {
     private Button restartButton;
 
     private void Awake() {
-        Debug.Log("UIGameOverScreen Awake");
         Hide();
         restartButton = transform.Find("restartButton").GetComponent<Button>();
         restartButton.onClick.AddListener(OnRestartButtonClicked);
@@ -27,12 +26,10 @@ public class UIGameOverScreen : MonoBehaviour {
     }
 
     private void LivesManager_OnPlayerDie(object sender, EventArgs e) {
-        Debug.Log("Inside Event Observer LiveManager_OnPlayerDie");
         Show();
     }
 
     private void Show() {
-        Debug.Log("ShowGameOverScreen()");
         gameObject.SetActive(true);
     }
 

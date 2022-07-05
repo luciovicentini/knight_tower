@@ -30,7 +30,6 @@ public class LivesManager : MonoBehaviour {
         remainingLives--;
         OnPlayerLoseLife?.Invoke(this, remainingLives);
         if (remainingLives <= 0) {
-            Debug.Log("Invoking OnPlayerDie");
             OnPlayerDie?.Invoke(this, EventArgs.Empty);
         }
     }
