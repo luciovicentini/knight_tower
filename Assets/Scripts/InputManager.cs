@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,11 +17,17 @@ public class InputManager : MonoBehaviour {
     private void Awake() {
         mainCamera = Camera.main;
         iDragComponentList = new List<IDrag>();
+        LivesManager.OnPlayerDie += LivesManager_OnPlayerDie;
+    }
+
+    private void LivesManager_OnPlayerDie(object sender, EventArgs e) {
+        gameObject.SetActive(false);
     }
 
     private void OnEnable() {
         positionInput.Enable();
         pressInput.Enable();
+        
         positionInput.performed += PositionInput_performed;
         pressInput.performed += PressInput_performed;
         pressInput.canceled += PressInput_canceled;
@@ -29,9 +36,11 @@ public class InputManager : MonoBehaviour {
     private void OnDisable() {
         positionInput.performed -= PositionInput_performed;
         pressInput.performed -= PressInput_performed;
-
+        
         positionInput.Disable();
         pressInput.Disable();
+        
+        LivesManager.OnPlayerDie -= LivesManager_OnPlayerDie;
     }
 
     private void PositionInput_performed(InputAction.CallbackContext context) {
@@ -86,5 +95,9 @@ public class InputManager : MonoBehaviour {
         var iDragComponent = cameraFollowTransform.GetComponent<IDrag>();
         iDragComponentList.Add(iDragComponent);
         iDragComponent?.OnDragStart(GetPointerWorldPosition());
+    }
+
+    public void Activate() {
+        gameObject.SetActive(true);
     }
 }

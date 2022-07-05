@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private Floor playerFloor;
     private LivesManager livesManager;
     private UILivesHolder uiLivesHolder;
+    private InputManager inputManager;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         playerFloor = FindObjectOfType<Floor>();
         livesManager = FindObjectOfType<LivesManager>();
         uiLivesHolder = FindObjectOfType<UILivesHolder>();
+        inputManager = FindObjectOfType<InputManager>();
         
         ResetTowerLevel();
     }
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
         enemyTowerManager.ResetTowerManager();
         livesManager.ResetLives();
         uiLivesHolder.ResetLives();
+        inputManager.Activate();
     }
 
     private void ResetTowerLevel() {
