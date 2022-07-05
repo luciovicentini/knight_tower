@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UILivesHolder : MonoBehaviour {
     
@@ -36,5 +35,11 @@ public class UILivesHolder : MonoBehaviour {
                 live3.gameObject.SetActive(false);
                 break;
         }
+    }
+
+    public void ResetLives() {
+        live1.gameObject.SetActive(true);
+        live2.gameObject.SetActive(true);
+        live3.gameObject.SetActive(true);
     }
 }

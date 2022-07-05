@@ -11,7 +11,7 @@ public class LivesManager : MonoBehaviour {
     public static event EventHandler<int> OnPlayerLoseLife;
     public static event EventHandler OnPlayerDie;
     private void Awake() {
-        remainingLives = livesAmount;
+        ResetLives();
     }
 
     // Start is called before the first frame update
@@ -30,7 +30,12 @@ public class LivesManager : MonoBehaviour {
         remainingLives--;
         OnPlayerLoseLife?.Invoke(this, remainingLives);
         if (remainingLives <= 0) {
+            Debug.Log("Invoking OnPlayerDie");
             OnPlayerDie?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public void ResetLives() {
+        remainingLives = livesAmount;
     }
 }

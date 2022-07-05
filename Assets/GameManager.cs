@@ -13,27 +13,30 @@ public class GameManager : MonoBehaviour
     
     private EnemyTowerManager enemyTowerManager;
     private Floor playerFloor;
+    private LivesManager livesManager;
+    private UILivesHolder uiLivesHolder;
 
     private void Awake()
     {
         Instance = this;
 
-        enemyTowerManager = GameObject.FindObjectOfType<EnemyTowerManager>();
-        playerFloor = GameObject.FindObjectOfType<Floor>();
-        nextTowerLevel = startingTowerLevel;
-    }
-
-    private void Start() {
-        LivesManager.OnPlayerDie += LivesManager_OnPlayerDie;
-    }
-
-    private void LivesManager_OnPlayerDie(object sender, EventArgs e) {
-        ResetGame();
+        enemyTowerManager = FindObjectOfType<EnemyTowerManager>();
+        playerFloor = FindObjectOfType<Floor>();
+        livesManager = FindObjectOfType<LivesManager>();
+        uiLivesHolder = FindObjectOfType<UILivesHolder>();
+        
+        ResetTowerLevel();
     }
 
     public void ResetGame() {
-        nextTowerLevel = startingTowerLevel;
+        ResetTowerLevel();
         playerFloor.ResetPlayerFloor();
         enemyTowerManager.ResetTowerManager();
+        livesManager.ResetLives();
+        uiLivesHolder.ResetLives();
+    }
+
+    private void ResetTowerLevel() {
+        nextTowerLevel = startingTowerLevel;
     }
 }
