@@ -9,15 +9,20 @@ public class InputManager : MonoBehaviour {
     [SerializeField] private InputAction positionInput;
     [SerializeField] private InputAction pressInput;
 
-    private List<IDrag> iDragComponentList;
+    private List<IDrag> draggableList;
+    private List<IPressed> pressableList;
+    
+    private float draggingStartingTime = .25f;
+    private bool wasDragging;
+    
     private Vector2 inputPosition;
 
     private Camera mainCamera;
 
     private void Awake() {
         mainCamera = Camera.main;
-        iDragComponentList = new List<IDrag>();
-        LivesManager.OnPlayerDie += LivesManager_OnPlayerDie;
+        draggableList = new List<IDrag>();
+        pressableList = new List<IPressed>();
     }
 
     private void LivesManager_OnPlayerDie(object sender, EventArgs e) {
@@ -28,6 +33,7 @@ public class InputManager : MonoBehaviour {
         positionInput.Enable();
         pressInput.Enable();
         
+        LivesManager.OnPlayerDie += LivesManager_OnPlayerDie;
         positionInput.performed += PositionInput_performed;
         pressInput.performed += PressInput_performed;
         pressInput.canceled += PressInput_canceled;
@@ -48,20 +54,21 @@ public class InputManager : MonoBehaviour {
     }
 
     private void PressInput_performed(InputAction.CallbackContext obj) {
+        wasDragging = false;
         Ray ray = mainCamera.ScreenPointToRay(inputPosition);
-
+    
         RaycastHit2D[] hits2DArray = Physics2D.GetRayIntersectionAll(ray);
-
+        
         foreach (var hit2D in hits2DArray) {
             if (hit2D.collider != null) {
                 IDrag iDragComponent = hit2D.collider.transform.GetComponent<IDrag>();
                 if (iDragComponent != null) {
-                    iDragComponentList.Add(iDragComponent);
-                    iDragComponent.OnDragStart(GetPointerWorldPosition());
+                    draggableList.Add(iDragComponent);
+                    // iDragComponent.OnDragStart(GetPointerWorldPosition());
                 }
 
                 if (hit2D.collider.TryGetComponent(out IPressed pressed)) {
-                    pressed.OnPressed();   
+                    pressableList.Add(pressed);
                 }
             }
         }
@@ -71,16 +78,35 @@ public class InputManager : MonoBehaviour {
     }
 
     private void PressInput_canceled(InputAction.CallbackContext obj) {
-        foreach (var iDragComponent in iDragComponentList) {
-            iDragComponent?.OnDragEnd();
+        if (wasDragging) {
+            foreach (var iDragComponent in draggableList) {
+                iDragComponent?.OnDragEnd();
+            }    
+        } else {
+            foreach (var pressComponent in pressableList) {
+                pressComponent?.OnPressed();
+            }
         }
-        iDragComponentList = new List<IDrag>();
+        
+        draggableList = new List<IDrag>();
+        pressableList = new List<IPressed>();
     }
 
     private IEnumerator DragUpdate() {
+        float draggingTime = 0f;
         while (pressInput.ReadValue<float>() != 0) {
-            foreach (var iDragComponent in iDragComponentList) iDragComponent?.OnDragging(GetPointerWorldPosition());
+            draggingTime += Time.deltaTime;
 
+            if (!wasDragging) {
+                if (draggingTime > draggingStartingTime) {
+                    wasDragging = true;
+                    foreach (var iDragComponent in draggableList) 
+                        iDragComponent?.OnDragStart(GetPointerWorldPosition());
+                }
+            } else {
+                foreach (var iDragComponent in draggableList) 
+                    iDragComponent?.OnDragging(GetPointerWorldPosition());
+            }
             yield return null;
         }
     }
@@ -93,7 +119,7 @@ public class InputManager : MonoBehaviour {
         var cameraFollowTransform = GameObject.Find("/CameraHandler/CameraFollow")?.transform;
         if (cameraFollowTransform == null) return;
         var iDragComponent = cameraFollowTransform.GetComponent<IDrag>();
-        iDragComponentList.Add(iDragComponent);
+        draggableList.Add(iDragComponent);
         iDragComponent?.OnDragStart(GetPointerWorldPosition());
     }
 

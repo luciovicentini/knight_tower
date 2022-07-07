@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IDrag {
+public class PlayerMovement : MonoBehaviour, IDrag, IPressed {
     private Vector2 draggingPosition;
     private EnemyFloor enemyFloorAttacked;
     private EnemyRoof enemyRoofAttacked;
@@ -40,30 +40,22 @@ public class PlayerMovement : MonoBehaviour, IDrag {
         CheckFloorIsAttacked();
         CheckRoofIsAttacked();
         MovePlayer();
-        CheckIsPlayerSelected();
         SendPlayerIsAttackingEvent();
         IsDragging = false;
-    }
-
-    private void CheckIsPlayerSelected() {
-        if (Vector2.Distance(startPosition, draggingPosition) < 0.1f) {
-            knightSelector.ToggleSelection();
-        }
     }
 
     public void OnDragging(Vector2 position) {
         draggingPosition = position;
     }
 
-
     public void OnDragStart(Vector2 position) {
         draggingPosition = position;
         IsDragging = true;
     }
 
-    public static event EventHandler<OnPlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
-    public class OnPlayerAttackEnemyFloorEventArgs : EventArgs {
-        public EnemyFloor enemyFloor;
+    public static event EventHandler<PlayerAttackEnemyFloorEventArgs> OnPlayerAttackEnemyFloor;
+    public class PlayerAttackEnemyFloorEventArgs : EventArgs {
+        public EnemyFloor EnemyFloor;
     }
     
     public static event EventHandler<EnemyRoof> OnPlayerAttackEnemyRoof;
@@ -103,7 +95,7 @@ public class PlayerMovement : MonoBehaviour, IDrag {
 
     private void SendPlayerIsAttackingEvent() {
         if (enemyFloorAttacked != null) {
-            var e = new OnPlayerAttackEnemyFloorEventArgs { enemyFloor = enemyFloorAttacked };
+            var e = new PlayerAttackEnemyFloorEventArgs { EnemyFloor = enemyFloorAttacked };
             OnPlayerAttackEnemyFloor?.Invoke(this, e);
         }
     }
@@ -111,8 +103,8 @@ public class PlayerMovement : MonoBehaviour, IDrag {
     private void CheckRoofIsAttacked() {
         if (enemyFloorAttacked == null) {
             var colliders = Physics2D.OverlapCircleAll(transform.position, floorDetectionRadius);
-            foreach (var collider in colliders)
-                if (collider.TryGetComponent(out EnemyRoof enemyRoof)) {
+            foreach (var roofCollider in colliders)
+                if (roofCollider.TryGetComponent(out EnemyRoof enemyRoof)) {
                     enemyRoofAttacked = enemyRoof;
                     OnPlayerAttackEnemyRoof?.Invoke(this, enemyRoofAttacked);
                 }
@@ -125,5 +117,9 @@ public class PlayerMovement : MonoBehaviour, IDrag {
 
     private void BattleManager_OnEnemyWinBattle(object sender, EventArgs e) {
         MoveToStart();
+    }
+
+    public void OnPressed() {
+        knightSelector.ToggleSelection();
     }
 }

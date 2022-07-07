@@ -26,8 +26,8 @@ public class Knight : MonoBehaviour {
     }
 
     private void PlayerMovement_OnPlayerAttackEnemyFloor(object sender,
-        PlayerMovement.OnPlayerAttackEnemyFloorEventArgs args) {
-        Battle(args.enemyFloor);
+        PlayerMovement.PlayerAttackEnemyFloorEventArgs args) {
+        Battle(args.EnemyFloor);
     }
 
     private void PlayerMovement_OnPlayerAttackEnemyRoof(object sender, EnemyRoof enemyRoof) {
