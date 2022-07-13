@@ -260,7 +260,7 @@ TextureImporter:
         x: 0
         y: 38
         width: 281
-        height: 95
+        height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1265,9 +1265,9 @@ TextureImporter:
       name: small_green_tree_01
       rect:
         serializedVersion: 2
-        x: 2021
+        x: 2023
         y: 549
-        width: 42
+        width: 40
         height: 84
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1433,9 +1433,9 @@ TextureImporter:
       name: small_tree_01
       rect:
         serializedVersion: 2
-        x: 1806
+        x: 1807
         y: 1146
-        width: 40
+        width: 39
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1612,7 +1612,7 @@ TextureImporter:
       half_cactus_left_01: 378157139
       small_tree_01: -1632131770
       small_bush_green_01: -956545421
-      orange_tree_01: 1396852189
+      narrow_house_green_roof: 642898672
       bush_01: 296581334
       piramyd_01: 519395973
       half_snowed_tree: -387165387
@@ -1655,7 +1655,7 @@ TextureImporter:
       small_bush_06: -1561557811
       castle_tower_02: -274840412
       cactus_01: 814416767
-      narrow_house_green_roof: 642898672
+      orange_tree_01: 1396852189
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
