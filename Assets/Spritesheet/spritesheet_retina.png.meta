@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 200
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -76,9 +76,1506 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: big_house_green_roof
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1708
+        width: 561
+        height: 434
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 422b658c255b84fae94289a4bdb01a78
+      internalID: 833891531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1416
+        width: 506
+        height: 290
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67cdb382292a8404eae08f8a3441c81c
+      internalID: 1924763369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_02
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1125
+        width: 500
+        height: 290
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a68954621887248ac9072cc4c8b1aa11
+      internalID: 60456915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_house_red_roof
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 689
+        width: 482
+        height: 436
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bad409740e1794ea59ea390189b5215d
+      internalID: -513266426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_03
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 413
+        width: 432
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6db2311f11674485cb13cb7a1f83df58
+      internalID: 1644797122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_04
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 135
+        width: 431
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 705b3f4d618dc436fa0d834d925a6933
+      internalID: 112383399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_01
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 38
+        width: 281
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9212ca3edcd443b599d16d95c594f46
+      internalID: 296581334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wall_castle_02
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 13
+        width: 121
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cebc1727be4fe4d7cb2f40385810d22b
+      internalID: 1800210734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle_01
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1728
+        width: 213
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c695ae60d33d409788a1c9ed1ba57ad
+      internalID: 971905531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_02
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 1708
+        width: 104
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 123eac08651e948f7842e85684ba16f7
+      internalID: -851095408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_01
+      rect:
+        serializedVersion: 2
+        x: 780
+        y: 1795
+        width: 110
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b4c9fc3657541af9ccb6f1846d3502
+      internalID: -128530971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_05
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 1899
+        width: 408
+        height: 243
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7de677ecad2e44d79709923e72ee5f5
+      internalID: -1053822582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: piramyd_01
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1308
+        width: 407
+        height: 399
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01e7813c59e2a43258c6efd013d2a0c3
+      internalID: 519395973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_house_red_roof
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 1208
+        width: 149
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df5437d301fd14f7ab60a25eb53e04a7
+      internalID: -1742114408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_02
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 1188
+        width: 241
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e5e645b25124fa5af695ef40111d10
+      internalID: 399574666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_03
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 1138
+        width: 98
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929ee3bf24f8d4b80a7d9cfa9d0749a5
+      internalID: -831125226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: piramyd_grey_01
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 827
+        width: 407
+        height: 296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43fedd61955764a248ad6d0f61923854
+      internalID: -1309320273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bush_03
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 709
+        width: 248
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1071636a78d74adaa90ac060d75086e
+      internalID: -135327879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_04
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 723
+        width: 116
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a25b604689cf944a38f67a2546e33052
+      internalID: 2145739993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: narrow_house_green_roof
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 242
+        width: 415
+        height: 447
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb103f3c38eb04e75b6f186d4361f8d0
+      internalID: 642898672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_06
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 405
+        height: 241
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d668a74a47de4d9aa60fea8007f3525
+      internalID: 1518865952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: grating_green_01
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 1899
+        width: 241
+        height: 243
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 926601055b4054e8d8cf4b998b264142
+      internalID: 1160090993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_tree_no_leaves
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 1406
+        width: 344
+        height: 493
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a1a3c16e7da24990a7e45a0b697efd1
+      internalID: -1687545220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_oragne_02
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 1315
+        width: 110
+        height: 91
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c141bc62471243b0b750e5a7d424120
+      internalID: 1036126965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_green_01
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 1311
+        width: 98
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd55b7aa7eab24b90a5ef858d5700a26
+      internalID: -956545421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_green_02
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 1314
+        width: 99
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63d74c1248c5342fa96f0a799c49b0ce
+      internalID: -415989631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_tree_orange_01
+      rect:
+        serializedVersion: 2
+        x: 1219
+        y: 1309
+        width: 60
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba0078a5955942fe943de766226b748
+      internalID: 901244217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_07
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 997
+        width: 392
+        height: 309
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f8a6a2641ffb40989992fb46518f5fb
+      internalID: 1692859639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fence_01
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 842
+        width: 205
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e62fa56ac273e4bf8aa1f97d4ef98df0
+      internalID: -1398975242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_house_green_roof
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 896
+        width: 148
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c2979f03ac0048f9ae32df8ac398927
+      internalID: 1657923728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: palm_01
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 351
+        width: 401
+        height: 476
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19365db07a9aa4a6f91242543fad045d
+      internalID: -1366217542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cloud_08
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 39
+        width: 393
+        height: 311
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30951e60766984035b42a9835c5fcc30
+      internalID: 1938856116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle
+      rect:
+        serializedVersion: 2
+        x: 1209
+        y: 1971
+        width: 213
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6032b416d1e7b49cca04dc83019af2cc
+      internalID: 1840737999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snowed_tree
+      rect:
+        serializedVersion: 2
+        x: 1251
+        y: 1458
+        width: 212
+        height: 508
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27cf75c789d124582b41af353cbd2d71
+      internalID: -1868605317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: half_snowed_tree
+      rect:
+        serializedVersion: 2
+        x: 1282
+        y: 996
+        width: 201
+        height: 453
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 015b8948cca8748da95f1fcdb4bed873
+      internalID: -387165387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: narrow_red_roof_house
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 549
+        width: 334
+        height: 446
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07cde755a54d412690c3c82f9c8af35
+      internalID: 597253746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_01
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 40
+        width: 212
+        height: 507
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4dfd9e5e7848462baf442aa8d9ca4a4
+      internalID: -1842801089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree_snowed_layed
+      rect:
+        serializedVersion: 2
+        x: 1459
+        y: 54
+        width: 211
+        height: 493
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c212a45bfdc44dbb911a04c81ab906
+      internalID: 656754878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_tree_02
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 1634
+        width: 211
+        height: 508
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe5f1a413061b48dfa40958987f67544
+      internalID: -74675781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_tree_01
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 1116
+        width: 201
+        height: 518
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b09706a0f6c14b7dbe9169970b5c666
+      internalID: 1396852189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_05
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 1006
+        width: 89
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6242109db41e941478b016d56eba072d
+      internalID: -1469310776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_bush_06
+      rect:
+        serializedVersion: 2
+        x: 1583
+        y: 733
+        width: 86
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc71190bb4f544959a2618241d560be
+      internalID: -1561557811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle_tower_02
+      rect:
+        serializedVersion: 2
+        x: 1582
+        y: 553
+        width: 76
+        height: 179
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d668423120f6c43b6a9cb4f81b2cba14
+      internalID: -274840412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_tree_01
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 1734
+        width: 188
+        height: 408
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4d098a6c32e4499095b45a470faabf6
+      internalID: 378337709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_tree_02
+      rect:
+        serializedVersion: 2
+        x: 1684
+        y: 1237
+        width: 164
+        height: 497
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b480f37418e4171b234590e01187dd
+      internalID: 1054930616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wall_castle_01
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 1116
+        width: 120
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8734f2b86e4d4fd3b8e8414a7d87e02
+      internalID: 409822731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cactus_01
+      rect:
+        serializedVersion: 2
+        x: 1582
+        y: 838
+        width: 192
+        height: 277
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2bcbe715051247fd8beb4aec9bdd7d1
+      internalID: 814416767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snowed_tree_02
+      rect:
+        serializedVersion: 2
+        x: 1670
+        y: 371
+        width: 189
+        height: 466
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa5ae35c413c043eead8022dd9b0065c
+      internalID: 1718048973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full_moon
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 215
+        width: 139
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd9c84accf04e4321993ad3bed41983a
+      internalID: -1037685056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full_moon_white
+      rect:
+        serializedVersion: 2
+        x: 1688
+        y: 47
+        width: 139
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc5a0e71b718946ba839daf000a6a7a6
+      internalID: -823499936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_red_house
+      rect:
+        serializedVersion: 2
+        x: 1840
+        y: 28
+        width: 152
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a4410c0d80a4c02acfcabe0edb2a40
+      internalID: -33002721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: half_moon
+      rect:
+        serializedVersion: 2
+        x: 1853
+        y: 179
+        width: 136
+        height: 141
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62601e831d6784e6086644285939bd56
+      internalID: -372445310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: half_cactus_right_01
+      rect:
+        serializedVersion: 2
+        x: 1995
+        y: 57
+        width: 140
+        height: 272
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c9e11b0d4b34a8d96d5e39fbc0f10d
+      internalID: 1213773107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_orange_tree
+      rect:
+        serializedVersion: 2
+        x: 2020
+        y: 462
+        width: 43
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4cc9d3098e74ae793e3006dff70f11
+      internalID: -1099837847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_green_tree_01
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 549
+        width: 42
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0bd4bfded2f74108af5ba7aa693efcb
+      internalID: -1390502306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_orange_02
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 634
+        width: 47
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4e24a5e3bc444428da13629e4531bf
+      internalID: -2059130866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_green_tree_02
+      rect:
+        serializedVersion: 2
+        x: 2021
+        y: 756
+        width: 47
+        height: 134
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0200c7d976c5a4ff384cbd5b5aaf38f9
+      internalID: -297095011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_green_tree_03
+      rect:
+        serializedVersion: 2
+        x: 2022
+        y: 892
+        width: 46
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62faa5ee795504213ad728d45197755e
+      internalID: 1156937307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange_tree_03
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 328
+        width: 160
+        height: 498
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3754d11ae11de4769aff8b1d33dc876a
+      internalID: 897104095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: half_snowed_tree_02
+      rect:
+        serializedVersion: 2
+        x: 1859
+        y: 826
+        width: 163
+        height: 477
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31121e37584e94af8906d0e8ed5f594f
+      internalID: -536216716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_green_tree_04
+      rect:
+        serializedVersion: 2
+        x: 1774
+        y: 838
+        width: 61
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7142908633a0e42a38dd7267a8e7c96c
+      internalID: 1222500085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle_tower_01
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 936
+        width: 74
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca317ca17452a401ebceae109b636154
+      internalID: 1044959156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_tree_01
+      rect:
+        serializedVersion: 2
+        x: 1806
+        y: 1146
+        width: 40
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4345b91420b4c4951b996a475976e87c
+      internalID: -1632131770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: snowed_round_tree_01
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 1305
+        width: 163
+        height: 428
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f852658311045eaafae2dd111b6251
+      internalID: -1555656798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: half_cactus_left_01
+      rect:
+        serializedVersion: 2
+        x: 1863
+        y: 1736
+        width: 137
+        height: 266
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a63f413a3740433a9460256e204ecfa
+      internalID: 378157139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: house_green_01
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 2002
+        width: 151
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78da394819b614d2bb6fc382505e35e6
+      internalID: -1205672160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: small_green_tree_05
+      rect:
+        serializedVersion: 2
+        x: 2015
+        y: 2043
+        width: 61
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eda0c0f9d138240e0ab8992d19a84555
+      internalID: 769157026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_tower_castle_02
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 1512
+        width: 146
+        height: 490
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7c9242ce3e94eebafb1d8d24315691
+      internalID: 1850746445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: big_tower_castle_01
+      rect:
+        serializedVersion: 2
+        x: 2022
+        y: 1022
+        width: 146
+        height: 490
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c71ea6c9dc71e409bb8f84499eb3d618
+      internalID: -1784229929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -89,7 +1586,76 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bush_03: -135327879
+      big_tower_castle_02: 1850746445
+      small_green_tree_03: 1156937307
+      cloud_06: 1518865952
+      house_green_01: -1205672160
+      cloud_02: 60456915
+      cloud_05: -1053822582
+      orange_tree_03: 897104095
+      full_moon: -1037685056
+      palm_01: -1366217542
+      green_tree_01: 378337709
+      small_green_tree_04: 1222500085
+      half_cactus_right_01: 1213773107
+      half_moon: -372445310
+      small_house_green_roof: 1657923728
+      tree_snowed_layed: 656754878
+      fence_01: -1398975242
+      cloud_07: 1692859639
+      castle_tower_01: 1044959156
+      wall_castle_01: 409822731
+      small_bush_03: -831125226
+      small_green_tree_01: -1390502306
+      half_cactus_left_01: 378157139
+      small_tree_01: -1632131770
+      small_bush_green_01: -956545421
+      orange_tree_01: 1396852189
+      bush_01: 296581334
+      piramyd_01: 519395973
+      half_snowed_tree: -387165387
+      castle_01: 971905531
+      small_green_tree_05: 769157026
+      half_snowed_tree_02: -536216716
+      cloud_08: 1938856116
+      big_house_red_roof: -513266426
+      small_house_red_roof: -1742114408
+      wall_castle_02: 1800210734
+      narrow_red_roof_house: 597253746
+      small_bush_oragne_02: 1036126965
+      small_bush_01: -128530971
+      small_green_tree_02: -297095011
+      snowed_round_tree_01: -1555656798
+      tree_01: -1842801089
+      small_bush_05: -1469310776
+      full_moon_white: -823499936
+      big_tower_castle_01: -1784229929
+      snowed_tree_02: 1718048973
+      big_tree_no_leaves: -1687545220
+      piramyd_grey_01: -1309320273
+      green_tree_02: 1054930616
+      cloud_04: 112383399
+      big_house_green_roof: 833891531
+      grating_green_01: 1160090993
+      orange_tree_02: -74675781
+      cloud_03: 1644797122
+      small_bush_green_02: -415989631
+      castle: 1840737999
+      small_tree_orange_01: 901244217
+      small_orange_tree: -1099837847
+      small_bush_02: -851095408
+      small_bush_04: 2145739993
+      cloud_01: 1924763369
+      small_red_house: -33002721
+      small_orange_02: -2059130866
+      snowed_tree: -1868605317
+      bush_02: 399574666
+      small_bush_06: -1561557811
+      castle_tower_02: -274840412
+      cactus_01: 814416767
+      narrow_house_green_roof: 642898672
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

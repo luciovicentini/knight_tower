@@ -68,7 +68,7 @@ public class MoveCamera : MonoBehaviour, IDrag {
     }
 
     private bool IsDraggingDown() {
-        if (draggingPosition.y < UtilsClass.GetDownLeftWorldCameraPosition().y + draggingMarginY) {
+        if (draggingPosition.y < UtilsClass.GetBottomLeftWorldCameraPosition().y + draggingMarginY) {
             return true;
         }
 
