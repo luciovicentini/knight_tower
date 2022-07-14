@@ -1,10 +1,11 @@
 public class Floor : BasicFloor {
     private void Awake() {
         levelIndicator = GetComponentInChildren<LevelIndicator>();
+        floorData = FloorData.One();
     }
 
     private void Start() {
-        floorData = FloorData.One();
+        
         UpdateLevelIndicator();
     }
 
