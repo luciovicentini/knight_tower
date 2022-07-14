@@ -89,4 +89,6 @@ public class EnemyTower : MonoBehaviour {
     public Vector3 GetRoofWorldPosition() => transform.position + enemyRoof.transform.localPosition;
 
     public Vector3 GetFirstFloorPosition() => transform.position;
+
+    public EnemyFloor[] GetFloors() => floors;
 }
