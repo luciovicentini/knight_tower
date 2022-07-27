@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +7,7 @@ public class CloudsManager : MonoBehaviour {
     [SerializeField] private Sprite[] cloudsSprites;
     [SerializeField] private Transform terrainBackground;
     
-    private float offScreenLeft = -4f;
-    private float offScreenRight = 4f;
+    private float offScreenMargin = 4f;
 
     private float spawnTime;
     private float maxTime = 6f;
@@ -99,10 +97,11 @@ public class CloudsManager : MonoBehaviour {
     private Direction GetRandomDirection() => UtilsClass.GetRandomBool() ? Direction.LeftToRight : Direction.RightToLeft;
 
     private float GetStartingPositionX(Direction direction) =>
-        direction == Direction.LeftToRight ? offScreenLeft : offScreenRight;
+        direction == Direction.LeftToRight ? UtilsClass.GetBottomLeftWorldCameraPosition() . x - offScreenMargin : 
+            UtilsClass.GetTopRightWorldCameraPosition(). x + offScreenMargin;
 
     private float GetFinalPositionX(Direction direction) =>
-        direction == Direction.LeftToRight ? offScreenRight : offScreenLeft;
+        direction == Direction.LeftToRight ? UtilsClass.GetTopRightWorldCameraPosition(). x + offScreenMargin : UtilsClass.GetBottomLeftWorldCameraPosition() . x - offScreenMargin;
 
     private Vector2 GetMovingDirection(Direction direction) =>
         direction == Direction.LeftToRight ? Vector2.right : Vector2.left;

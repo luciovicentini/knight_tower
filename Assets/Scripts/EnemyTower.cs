@@ -9,9 +9,9 @@ public class EnemyTower : MonoBehaviour {
     public static event EventHandler OnCreateEnemyTower;
     
     
-    public static EnemyTower Create(Vector3 position, List<FloorData> floorLevels, FloorData bossData) {
+    public static EnemyTower Create(List<FloorData> floorLevels, FloorData bossData) {
         GameManager.Instance.nextTowerLevel++;
-        var enemyTowerTransform = Instantiate(GameAssets.Instance.pfEnemyTower, position, Quaternion.identity);
+        var enemyTowerTransform = Instantiate(GameAssets.Instance.pfEnemyTower, Vector2.zero, Quaternion.identity);
 
         var floors = new EnemyFloor[floorLevels.Count];
 
@@ -53,6 +53,8 @@ public class EnemyTower : MonoBehaviour {
             floors[i].OnFloorDefeated += EnemyFloor_OnFloorDefeated;
         }
         BattleManager.OnPlayerWinBossBattle += BattleManager_OnPlayerWinBossBattle;
+        
+        transform.position = GameObject.Find("EnemyTowerPosition").transform.position;
     }
 
     private void OnDisable() {

@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyTowerManager : MonoBehaviour {
     
     private EnemyTower currentTower;
-    private Vector3 enemyTowerPosition;
     private Floor playerFloor;
 
     private Transform playerTower;
@@ -17,9 +16,6 @@ public class EnemyTowerManager : MonoBehaviour {
     }
 
     private void Start() {
-        var screenWorldPosition = UtilsClass.GetTopRightWorldCameraPosition();
-        enemyTowerPosition =
-            new Vector3(screenWorldPosition.x - playerTower.position.x * -1, playerTower.position.y, 0f);
         EnemyTower.OnTowerDefeated += EnemyTower_OnTowerDefeated;
         
         CreateNextTower();
@@ -35,7 +31,7 @@ public class EnemyTowerManager : MonoBehaviour {
         playerFloor.SetPlayerLevel(playerFloorData);
         List<FloorData> floorDataList = FloorDataUtil.GetFloorPowerLevels(GameManager.Instance.nextTowerLevel, playerFloorData);
         FloorData bossData = FloorDataUtil.GetBossLevel(floorDataList, playerFloorData);
-        EnemyTower enemyTower = EnemyTower.Create(enemyTowerPosition, floorDataList, bossData);
+        EnemyTower enemyTower = EnemyTower.Create(floorDataList, bossData);
         
         return enemyTower;
     }
